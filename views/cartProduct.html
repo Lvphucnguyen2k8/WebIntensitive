@@ -1,0 +1,55 @@
+<div style="display:flex; align-items: flex-start;">
+    <div style="display:flex; align-items: center; border: none;">
+        <form action="" onsubmit="return false">
+            <label class="toggle">
+                <input class="toggle__input checkbox" type="checkbox" style="opacity: 0;">
+                <span class="toggle__label">
+            </label>
+        </form>
+        <div class="cart-product-img" style="padding: 0px;">
+
+            <img src="{{product_img}}" alt="" width="80" height="80" style="margin: 0; padding: 0;">
+        </div>
+
+    </div>
+
+    <div class="desc" style="text-align: left; border: none;">
+        <h3> {{product_title}}
+        </h3>
+        <p class="small" style="width:600px;">
+           {{nutrients}}
+        </p>
+        <div style="margin-bottom: 20px;">
+            <small>
+                <h6>Description</h6>
+                <small>
+                    {{description}}
+                </small>
+            </small>
+        </div>
+
+        <div style="display: flex;">
+            <p>{{shop-name}} </p>
+            <p style="margin: 0px 10px; cursor: pointer;"> | </p>
+            <p> <i class="fa fa-trash"></i> Remove</p>
+        </div>
+    </div>
+</div>
+<div>
+    <div style="display: flex; flex-direction: column; width:fit-content; border: none;">
+        <h4 class="product-price">
+            {{price}}<sup>$</sup>
+        </h4>
+        <div class="quantity">
+            <div class="punctuation-plus">
+                <span>+</span>
+            </div>
+            <div>
+                <input type="number" name="num" id="" class="product-quantity" min="0" value="1">
+            </div>
+            <div class="punctuation-minus">
+                <span>-</span>
+            </div>
+        </div>
+    </div>
+</div>

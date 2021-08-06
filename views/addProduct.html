@@ -1,0 +1,174 @@
+<div class="add-product-container">
+    <link rel="stylesheet" href="../SCSS/addProductPage.css">
+    <div class="container">
+        <div class="contact-wrap w-100 p-md-5 p-4">
+            <div id="form-message-warning" class="mb-4"></div>
+            <form method="POST" id="add-product" name="add-product" class="add-product" onsubmit="return false">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="label" for="name">Product's name</label>
+                        <input type="text" class="form-control" name="name" id="add-product-name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label class="label" for="shopname">Shop's name</label>
+                        <input type="text" class="form-control" name="shop" id="add-product-shopname" placeholder="...">
+                    </div>
+                    <div class="form-group">
+                        <label for="fruitGroup">Choose a group of fruit:</label>
+                        <br>
+                        <select name="fruitGroup" id="fruitGroup" style="outline:none;">
+                            <option value="Click me !" disabled selected>Click me!</option>
+                            <option value="Berries">Berries</option>
+                            <option value="Pits">Pits</option>
+                            <option value="Core">Core</option>
+                            <option value="Citrus Fruits">Citrus Fruits</option>
+                            <option value="Melons">Melons</option>
+                            <option value="Tropical Fruits">Tropical Fruits</option>
+                            <option value="More option" id="more-option">More option +</option>
+                        </select>
+                        <br>
+                        <div style="display: flex; height: 35px; align-items: center; margin-top:20px; visibility: hidden;"
+                            id="moreOpt-form">
+                            <input type="text" name="more" id="moreOption-input" placeholder="here...">
+                            <button class="btn btn-primary"
+                                style="height: 34.8px; margin-top:20px; margin-left:15px; display: flex; justify-content:center; align-items:  center;"
+                                id="moreOpt-btn">Add</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div>
+                            <div>
+                                <label class="label" for="PD-Photo">Product Photos</label> <br>
+                                <input type="file" name="PD-Photo" id="PD-Photo">
+                            </div>
+                            <div class="img-bg" id="main-img">
+                                <i class="fa fa-image"></i>
+                            </div>
+                        </div>
+                        <div style="display: flex;">
+                            <div class="more-img" style="display: flex; justify-content: center; align-items:  center;">
+
+                            </div>
+                            <div>
+                                <input type="file" name=""  class="moreImg-input">
+                            </div>
+                            <div class="more-img" style="display: flex; justify-content: center; align-items:  center;">
+
+                            </div>
+                            <div>
+                                <input type="file" name="" class="moreImg-input">
+                            </div>
+                            <div class="more-img" style="display: flex; justify-content: center; align-items:  center;">
+
+                            </div>
+                            <div>
+                                <input type="file" name=""  class="moreImg-input">
+                            </div>
+                            <div class="more-img" style="display: flex; justify-content: center; align-items:  center;">
+
+                            </div>
+                            <div>
+                                <input type="file" name="" class="moreImg-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="label" for="description">Description</label>
+                        <textarea name="description" class="form-control" id="message" cols="30" rows="4"
+                            placeholder="Description"></textarea>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label class="label" for="Nutrients">Nutrients</label>
+                        <textarea name="Nutrients" class="form-control" cols="30" rows="4"
+                            placeholder="Type here"></textarea>
+                    </div>
+
+                    <div style="margin-bottom: 30px;">
+                        <label class="label" for="iventory">Inventory</label> <br>
+                        <input type="number" name="inventory" id="inventory" placeholder="here" min="1">
+                    </div>
+                    <div style="margin-bottom: 30px;">
+                        <label class="label" for="price">Price </label>
+                        <select name="currencies" id="currency" style="margin-left: 20px;">
+                            <option value="USD" >USD (Default)</option>
+                        </select>
+                        <br>
+                        <input type="number" name="price" id="price1" 
+                        placeholder="USD" min="1" class="fluctuating-price">
+
+                        <i class="fas fa-arrow-right" style="margin: 20px;"></i>
+
+                        <input type="number" name="price" id="price2"
+                            placeholder="USD" min="1" class="fluctuating-price">
+                    </div>
+                    <div style="margin-bottom: 30px;">
+                        <label for="weight" class="label weight"> Weight/ Product</label> 
+                        <select name="units" id="units" style="margin-left: 20px;">
+                            <option value="Kg" selected>Kilograms (Default)</option>
+                        </select>
+                        <br>
+                        <input type="number" name="weight" id="weight" placeholder="Kg" min="1">
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" id="sell-now-btn" s+>Sell
+                                now</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div style="display:flex; width: 600px;">
+            <div class="info-wrap p-md-5 " style="padding: 4px; background-color: #007bff; ">
+                <h3>Adding a product</h3>
+                <div class="dbox" style="margin-top:40px; display:flex;">
+                    <div class="icon center">
+                        <span class="fa fa-map-marker"></span>
+                    </div>
+                    <div class="text">
+                        <p><span>Warehouse address:</span>
+                            <input type="text" class="g-input" name="name" id="warehouse-address" placeholder="address"
+                                style="background-color: transparent; border:none; border-bottom: 1px solid white; color:white; outline: none;">
+                        </p>
+                    </div>
+                </div>
+                <div class="dbox  " style="margin-top:40px; display:flex;">
+                    <div class="icon center">
+                        <span class="fa fa-phone"></span>
+                    </div>
+                    <div class="text">
+                        <p><span>Phone number:</span> <a>
+                                <input type="text" class="g-input" name="warehouse-address" id="addPD-phoneNum"
+                                    placeholder="phone"
+                                    style="background-color: transparent; border:none; border-bottom: 1px solid white; color:white; outline: none;">
+                            </a></p>
+                    </div>
+                </div>
+                <div class="dbox " style="margin-top:40px; display:flex;">
+                    <div class="icon center">
+                        <span class="fa fa-paper-plane"></span>
+                    </div>
+                    <div class="text">
+                        <p><span>Email:</span> <br>
+                            <input type="text" class="g-input" name="name" id="email" placeholder="email"
+                                style="background-color: transparent; border:none; border-bottom: 1px solid white; color:white; outline: none;">
+
+                        </p>
+                    </div>
+                </div>
+                <div class="dbox " style="margin-top:40px; display:flex;">
+                    <div class="icon center">
+                        <span class="fa fa-globe"></span>
+                    </div>
+                    <div class="text ">
+                        <p><span>Origin of the product:</span> <input type="text" class="g-input" name="name"
+                                id="productOrigin" placeholder="type here"
+                                style="background-color: transparent; border:none; border-bottom: 1px solid white; color:white; outline: none;">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

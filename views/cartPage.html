@@ -1,0 +1,166 @@
+<div class="cart-container">
+    <link rel="stylesheet" href="../SCSS/cartPage.css">
+    <div class="container">
+        <div>
+            <div class="row" style="display:flex;">
+                <div class="col">
+
+                    <!-- title -->
+                    <div class="title" style="width:990px; display: flex; justify-content:space-between;">
+                        <div>
+                            <span class="pull-right">(<strong>{{items quantity}}</strong>) items</span>
+
+                        </div>
+                        <div style="display: flex;">
+                            <form action="" onsubmit="return false">
+                                <label class="toggle">
+                                    <input class="toggle__input checkbox" type="checkbox" style="opacity: 0;"
+                                        id="select-all">
+                                    <span class="toggle__label">
+                                </label>
+                            </form>
+                            <h5>Product</h5>
+                        </div>
+                    </div>
+
+                    <!-- content -->
+                    
+                    <div class="content" style="display:flex; flex-direction: row;" id="user-cart">
+                        <!-- adding product here -->
+                        <!-- Open the code if you want to see the page interface -->
+                        <!-- THIS IS AN EXAMPLE -->
+                        <div style="display:flex; align-items: flex-start;">
+                            <div style="display:flex; align-items: center; border: none;">
+                                <form action="" onsubmit="return false">
+                                    <label class="toggle">
+                                        <input class="toggle__input checkbox" type="checkbox" style="opacity: 0;">
+                                        <span class="toggle__label">
+                                    </label>
+                                </form>
+                                <div class="cart-product-img" style="padding: 0px;">
+                    
+                                    <img src="../Assets/karma.jpg" alt="" width="80" height="80" style="margin: 0; padding: 0;">
+                                </div>
+                    
+                            </div>
+                    
+                            <div class="desc" style="text-align: left; border: none;">
+                                <h3> Quả báo
+                                </h3>
+                                <p class="small" style="width:600px;">
+                                    A nutrient is a substance used by an organism to survive, grow, and
+                                    reproduce. The requirement for dietary nutrient
+                                    intake applies to animals, plants, fungi, and protists.
+                                </p>
+                                <div style="margin-bottom: 20px;">
+                                    <small>
+                                        <h6>Description</h6>
+                                        <small>
+                                            lorem ipsum dolor sit amet, consectet ut labore et dolor sit
+                                            amet et dolor.
+                                        </small>
+                                    </small>
+                                </div>
+                    
+                                <div style="display: flex;">
+                                    <p>{{shop-name}} </p>
+                                    <p style="margin: 0px 10px; cursor: pointer;"> | </p>
+                                    <p> <i class="fa fa-trash"></i> Remove</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; flex-direction: column; width:fit-content; border: none;">
+                                <h4 class="product-price">
+                                    {{price}}<sup>$</sup>
+                                </h4>
+                                <div class="quantity">
+                                    <div class="punctuation-plus">
+                                        <span>+</span>
+                                    </div>
+                                    <div>
+                                        <input type="number" name="num" id="" class="product-quantity" min="0" value="1">
+                                    </div>
+                                    <div class="punctuation-minus">
+                                        <span>-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    <!-- buy now btn adn continue shopping btn -->
+                    <div class="content" style="display:flex;">
+                        <button class="btn" style="margin-bottom: 10px; background-color: #0d6efd; color:white;"><i
+                                class="fa fa-shopping-cart"></i>
+                            Buy now</button>
+                        <button class="btn" id="continue-shopping-btn"><i class="fa fa-arrow-left"></i>
+                            Continue shopping</button>
+                    </div>
+
+                </div>
+
+                <!-- cart summary div -->
+                <div class="col">
+                    <div class="title" style="display: flex; flex-direction: column; text-align: left; padding: 0px;">
+                        <div class="title">
+                            <h5>Cart Summary</h5>
+                        </div>
+                        <div class="content">
+                            <h2>
+                                ${{total}}
+                            </h2>
+
+                        </div>
+                    </div>
+
+                    <!-- support div -->
+                    <div>
+                        <div class="title">
+                            <h5>Support</h5>
+                        </div>
+                        <div class="content" style="text-align:center;">
+                            <h3><i class="fa fa-phone"></i> {{phone}}</h3>
+                        </div>
+                    </div>
+
+                    <!-- other products -->
+                    <div class="content">
+                        <p class="font-bold" style="text-align:center;">
+                            Other products you may be interested
+                        </p>
+                        <div>
+                            <span class="product-name" style="color: #0d6efd;">
+                                {{name-1}}
+                            </span>
+                            <div>
+                                <small>
+                                    {{desc-1}}
+                                </small>
+                            </div>
+                            <div>
+
+                                <button class="btn btn-primary">Check it out!</button>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <span class="product-name" style="color: #0d6efd;">
+                                {{name-2}}
+                            </span>
+                            <div>
+                                <small>
+                                    {{desc-2}}
+                                </small>
+                            </div>
+                            <div>
+
+                                <button class="btn btn-primary">Check it out!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

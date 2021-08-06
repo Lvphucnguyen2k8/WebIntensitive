@@ -1,0 +1,211 @@
+<div class="productPage">
+    <!-- tips for a good product page.
+    https://www.websitebuilderexpert.com/designing-websites/ecommerce-product-page-design-part-1/ -->
+    <link rel="stylesheet" href="../SCSS/productPage.css">
+    <div class="product-container">
+        <div class="img-and-info">
+            <div class="img">
+                <div class="product-image">
+                    <div id="PRD-main-img">
+                        <!-- img here -->
+                        <img src="https://jooinn.com/images/red-21.jpg" alt="{{product-image}}" style="width:100%;"
+                            class="product-main-img">
+                    </div>
+                </div>
+
+                <!-- more images -->
+                <div class="img-row">
+                    <div class="img-small img-1" id="img-1">
+                        <img src="https://jooinn.com/images/red-21.jpg" alt="" width="100" height="100"
+                            onmousemove="changeImage(0)" class="vice-img">
+                    </div>
+                    <div class="img-small img-2" id="img-2">
+                        <img src="https://www.long-time-liner-onlineshop.com/wp-content/uploads/2018/08/Lips_Nude_Pink-1.png"
+                            class="vice-img" onmousemove="changeImage(1)" alt="" width="100" height="100">
+
+                    </div>
+                    <div class="img-small img-3" id="img-3">
+                        <img src="https://skatkatz.com.au/wp-content/uploads/2019/05/681CE6EE-7820-4C13-AA42-89C32E9007B5-600x600.png"
+                            alt="" height="100" width="100" class="vice-img" onmousemove="changeImage(2)">
+
+                    </div>
+                    <div class="img-small img-4" id="img-4">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Solid_black.svg/1024px-Solid_black.svg.png"
+                            alt="" height="100" width="100" class="vice-img" onmousemove="changeImage(3)">
+
+                    </div>
+                    <div class="img-small img-5" id="img-5">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Solid_purple.svg/1024px-Solid_purple.svg.png"
+                            alt="" height="100" width="100" class="vice-img" onmousemove="changeImage(4)">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-info">
+                <!-- add to favorite heart -->
+                <div class="heart add-to-fav" id="add-to-favorite-heart">
+                    <i class="fas fa-heart"></i>
+                </div>
+
+                <!-- product title -->
+                <div class="title">
+                    <h1 class="product-title" style="color: black;">
+                        {{product-title}}
+                    </h1>
+                </div>
+                <div>
+                    <div class="assessment">
+                        <!-- rating stars -->
+                        <div class="rating-star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <!-- review -->
+                        <div class="review">
+                            <span class="review-number">{{ratings}}</span>
+                            <span style="color: gray;"> Ratings</span>
+                        </div>
+                        <!-- sold -->
+                        <div class="sold" style="border: none;">
+                            <span class="sold-number">{{sold}}</span>
+                            <span style="color: gray;">Sold</span>
+                        </div>
+                    </div>
+                    <div class="priceDiv">
+                        <!-- price -->
+                        <div>
+                            <p class="price" id="price">
+                                {{price}}<sup><small>$</small></sup>
+                            </p>
+                        </div>
+
+                        <!-- old price in delete font style (if yes) -->
+                        <!-- <div>
+                            <p class="oldPrice">
+                                <del>{{old-price}}<small><sup>$</sup></small> </del>
+                            </p>
+                        </div> -->
+
+                        <div class="buttons">
+                            <!-- add to cart btn -->
+                            <div class="add-to-cart-btn set ">
+                                <div class="add-to-cart-wrapper wrapper set">
+                                    <div class="icon set">
+                                        <div class="add-to-cart-tt tooltip set">Add to cart</div>
+                                        <span><i class="fas fa-cart-plus" style="font-size:25px"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- buy now btn -->
+                            <div class="buy-now-btn" style="margin-left: 20px;">
+                                <div class="buy-now-wrapper wrapper set" style="background-color: #ee4d2d;">
+                                    <div class="icon set">
+                                        <div class="tooltip set" style="background-color: #ee4d2d;">Buy Now !!</div>
+                                        <span><i class="fas fa-cash-register" style="color: white; font-size:25px;"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nutrients">
+                        <div class="nutrients-title">
+                            <h2>Nutrients</h2>
+                        </div>
+                        <div class="nutrients-content">
+                            <!-- remember to add a word limit -->
+                            {{nutrients-content}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="moreInfo-description">
+            <div>
+                <div class="MF">
+                    More information
+                </div>
+                <div class="moreInfo-content">
+                    <!-- example -->
+                    <ul>
+                        <li>
+                            Sold by: <a href="">{{shop-name}}</a>
+                        </li>
+                        <li>
+                            Origin: {{origin}}
+                        </li>
+                        <li>
+                            In stock: {{quantity}}
+                        </li>
+                        <li>
+                            Category: {{category}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="description">
+                <div class="MF">
+                    Description
+                </div>
+                <div class="description-content moreInfo-content">
+                    {{description}}
+                </div>
+            </div>
+        </div>
+
+        <div class="comment-section">
+            <div class="comment-title MF" style="border-left:35px solid white; border-right: 35px solid white;">
+                Comments
+            </div>
+            <div class="comment-content" id="comment-content">
+                                 <div class="comment-content" style="display: flex;">
+                                    <!-- open code if you want to see the interface -->
+                                    <!-- THIS IS A SAMPLE-->
+                                    <!-- <div class="media g-mb-30 media-comment "> -->
+                                
+                                    <!-- avatar here -->
+                                   <!-- <div>
+                                        <img width="50" height="50" style="border-radius:100%; margin: 20px 20px 0px 0px;"
+                                            src="https://i5.walmartimages.ca/images/Enlarge/580/6_r/875806_R.jpg" alt="{{avatar}}">
+                                    </div>
+                                    <div style="margin-top:20px; background-color: white; padding: 30px;">
+                                        <div>
+                                            <h5>A banana</h5>
+                                            <span><small>69 years ago</small></span>
+                                            <div class="rating-star comment-star" style="margin: 5px 0px 5px 0px;">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                        </div>
+                                
+                                        <p>
+                                            lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                                            been the first to create typesetting documentation for the printing and typesetting industry
+                                            in the United States for the printing and typesetting industry since it was the first to
+                                            create typesetting documentation for the printing and typesetting industry in the United
+                                            States for the printing and typesetting industry since it was the first to create
+                                            typesetting documentation for the printing and typesetting industry in the United States for
+                                            the printing and types
+                                
+                                        </p>
+                                
+                                        <i class="fa fa-thumbs-up " style="color: #9e9d9d;"></i>
+                                        0
+                                
+                                    </div>
+                                </div> -->
+
+            </div>
+        </div>
+
+    </div>
+</div>

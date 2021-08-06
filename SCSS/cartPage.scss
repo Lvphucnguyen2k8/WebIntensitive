@@ -1,0 +1,120 @@
+$primary: #f5f5f5;
+
+//header
+.cart-container {
+  margin: 0;
+  padding: 50px;
+  width: 100%;
+  background-color: $primary;
+}
+
+.title {
+  background-color: #ffffff;
+  padding: 14px 15px 7px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  justify-content: flex-end;
+  text-align: right;
+}
+.content {
+  background-color: #ffffff;
+  padding: 15px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
+}
+.ibox-footer {
+  background: #ffffff;
+  padding: 10px 15px;
+}
+
+
+
+.quantity {
+  margin-top: 20px;
+  display: flex;
+}
+.punctuation-plus,
+.punctuation-minus {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #007bff;
+  cursor: pointer;
+  color: #ffffff;
+  outline: none;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  span {
+    font-size: 30px;
+    font-weight: bold;
+    position: relative;
+    bottom: 2px;
+  }
+  &:hover {
+    opacity: 0.9;
+  }
+}
+.product-quantity {
+  outline: none;
+  width: 60px;
+  border-radius: 0px;
+  height: 30px;
+  border: 1px solid #dbdbdd;
+  text-align: center;
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
+}
+
+
+.toggle {
+  display: inline-flex;
+  position: relative;
+  top: -5px;
+  cursor: pointer;
+  margin-right: 40px;
+}
+.toggle__label::after {
+  content: "   ";
+  width: 1em;
+  height: 1em;
+  font-size: 1.25rem;
+  background-color: transparent;
+  border: 2px solid #222;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.toggle__input:checked ~ .toggle__label::after {
+  background-color: #222;
+}
+
+.toggle__label::before {
+  margin: -4px -3px;
+  content: "";
+  width: 0;
+  height: 0;
+  font-size: 1.75rem;
+  border-left-style: solid;
+  border-bottom-style: solid;
+  border-color: #fff;
+  position: absolute;
+  top: 0.5428em;
+  left: 0.25em;
+  z-index: 3;
+  transform-origin: left top;
+  transform: rotate(-40deg) skew(10deg);
+}
+
+.toggle__input:checked ~ .toggle__label::before {
+  width: 0.4em;
+  height: 0.2em;
+}
+.toggle__input:checked ~ .toggle__label::before {
+  transition: opacity 0.1s ease-out 0.25s, width 0.1s ease-out 0.5s, height 0.2s ease-out 0.3s;
+}
