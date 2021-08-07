@@ -1,0 +1,89 @@
+.footer {
+    background-color: #263238;
+    color: white;
+  }
+  
+  .footer-content {
+    width: 100%;
+    padding: 75px;
+  }
+  
+  .footer-title {
+    color: white;
+  }
+  
+  .info-text {
+    color: #ccc;
+  }
+  
+  h4.footer-title {
+    color: White;
+    border-bottom: 2px solid white;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding-bottom: 5px;
+  }
+  
+  .text {
+    color: #ccc;
+    font-size: 15px;
+    line-height: 22.5px;
+  }
+  
+  .column {
+    width: 250px;
+    word-wrap: break-word;
+    margin: 30px;
+  }
+  
+  .address {
+    line-height: 25px;
+    margin-top: 15px;
+  }
+  
+  .address .fa {
+    margin-right: 7px;
+  }
+  
+  .footer-info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  
+  a {
+    color: #ccc;
+  }
+  
+  .social-media {
+    font-size: 15px;
+    margin-right: 7px;
+  }
+  
+  .ff {
+    height: 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  
+  .something {
+    background-color: white;
+    margin-top: 50px;
+    height: 100px;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border-top: 7px solid #00c900;
+  }
+  /*# sourceMappingURL=footer.css.map */

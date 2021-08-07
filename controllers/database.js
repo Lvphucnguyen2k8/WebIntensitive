@@ -1,3 +1,6 @@
+import { Product } from "../Models/product.js"
+import { renderCard, loadCard, getProductPage, loadProductPage, myFirebase } from "../Controllers/menu.js"
+
 const currencies = [
     "AED",
     "AFN",
@@ -195,7 +198,7 @@ const weightUnits = [
     },
     {
         name: "Stone", //yến
-        acronym : "stone"
+        acronym: "stone"
     }
 ]
 
@@ -227,4 +230,88 @@ let renderWeightUnits = async () => {
 
     })
 }
-export { renderCurrencies, renderWeightUnits }
+
+//main 
+let getData = async () => {
+    let request = await fetch("https://api.predic8.de/shop/products/?page=1&limit=30")
+    let response = await request.json()
+    return response.products
+}
+
+let initProducts = async () => {
+    let data = await getData()
+    let card = await loadCard()
+
+    for (let i = 0; i < 24; i++) {
+        let product = initProduct(data[i])
+
+        // myFirebase()
+        // var db = firebase.firestore();
+
+        // db.collection("Products").add({
+        //     name : (await product).getName(),
+        //     price : (await product).setPrice(),
+        //     category : (await product).getCategory(),
+        //     image : (await product).getImage(),
+        //     vendor : await (await product).getVendor()
+        // }).then((document) => {
+        //     console.log(document.id)
+        // }).catch((error) => {
+        //     console.log(error.message)
+        // })
+
+
+        let name = (await product).getName()
+        let price = (await product).setPrice()
+        let category = (await product).getCategory()
+        let image = (await product).getImage()
+        let vendor = await (await product).getVendor()
+
+        let newCard = card.replace("{{image}}", image).replace("{{title}}", name).replace("{{category}}", category).replace("{{price}}", price).replace("{{vendor}}", vendor)
+        renderCard(newCard)
+    }
+
+}
+
+let initProduct = async (data) => {
+    //product    
+    let obj = await fetchURL(data["product_url"])
+
+    return new Product(obj["name"], obj["price"], obj["category_url"], obj["photo_url"], obj["vendor_url"])
+}
+
+let fetchURL = async (url) => {
+    if (url.includes("shop")) {
+        let request = await fetch("https://api.predic8.de" + url)
+        let response = await request.json()
+        return response
+    }
+    else {
+        return url
+    }
+}
+
+let loadClickedProduct = async (id) => {
+    let data = await getData()
+    let product = await data[id]
+    let obj = await initProduct(product)
+
+    let image = obj.getImage()
+    let name = obj.getName()
+    let category = obj.getCategory()
+    let price = obj.setPrice()
+    let vendor = await obj.getVendor()
+
+    let html = await getProductPage()
+
+    html = html.replace("{{img1.5}}", image).replace("{{img2}}", image).replace("{{img3}}", image).replace("{{img4}}", image).replace("{{img5}}", image).replace("{{img1}}", image)
+        .replace("{{product-title}}", name)
+        .replace("{{ratings}}", "0")
+        .replace("{{sold}}", "0")
+        .replace("{{price}}", price)
+        .replace("{{shop-name}}", vendor)
+        .replace("{{category}}", category)
+
+    loadProductPage(html)
+}
+export { renderCurrencies, renderWeightUnits, initProducts, loadClickedProduct }

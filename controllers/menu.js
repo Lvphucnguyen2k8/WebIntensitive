@@ -1,8 +1,9 @@
-import { renderCurrencies, renderWeightUnits } from "./database.js";
+import { renderCurrencies, renderWeightUnits, initProducts, loadClickedProduct } from "./database.js";
 import { resetPassword, signIn, signUp } from "./authen.js"
 
 var shop_menu = document.createElement('div');
 var shop_content = document.createElement('div');
+var shop_footer = document.createElement('div');
 
 let myFirebase = () => {
     // Your web app's Firebase configuration
@@ -33,20 +34,22 @@ let initHTML = async () => {
     // document.body.appendChild(shop_content);
     document.getElementById("Web-content").appendChild(shop_content);
 
-    await loadHome();
+    shop_footer.id = 'footer'
+    document.getElementById("Web-content").appendChild(shop_footer);
+
     await loadMenu();
+    await loadHome();
+    await loadFooter();
     getMenu();
 }
 
 let getMenu = async () => {
-    await loadHome()
-    document.getElementById("product-page-btn").addEventListener("click", loadProductPage)
 
-    document.getElementById("add-product-btn").addEventListener("click", async () => {
-        await loadAddProductPage();
-        showImage()
-        showSmallImage()
-    })
+    // document.getElementById("add-product-btn").addEventListener("click", async () => {
+    //     await loadAddProductPage();
+    //     showImage()
+    //     showSmallImage()
+    // })
 
     document.getElementById("home-btn").addEventListener("click", async () => {
         await loadHome();
@@ -80,10 +83,11 @@ let loadHome = async () => {
     let response = await fetch('../Views/home.html')
     let result = await response.text()
     shop_content.innerHTML = result;
-    
-    document.getElementById('product-page-btn').addEventListener("click", async () => {
-        loadProductPage();
-    })
+
+    // document.getElementById("product-page-btn").addEventListener("click", loadProductPage)
+    await loadFilterBar()
+    await initProducts()
+    await clickProduct()
 }
 
 //cart page
@@ -193,6 +197,7 @@ let loadAddProductPage = async () => {
     moreOption()
     renderCurrencies()
     renderWeightUnits()
+    moreImage()
 }
 let showImage = () => {
     myFirebase()
@@ -270,12 +275,31 @@ let isEmpty = (value) => {
     }
     return "false"
 }
+let moreImage = async () => {
+    document.getElementById("add-img").addEventListener("click", async () => {
+        let target = document.getElementById("images-row")
+        target.innerHTML += `
+                       <div class="more-img"
+                                    style="display: flex; justify-content: center; align-items:  center;">
+                                </div>
+                                <div>
+                                    <input type="file" name="" class="moreImg-input">
+                                </div>
+        `
+        showSmallImage()
+    })
+}
 
 //product page
-let loadProductPage = async () => {
-    let response = await fetch("../Views/productPage.html");
-    let result = await response.text();
-    shop_content.innerHTML = result;
+let loadProductPage = async (card) => {
+    // let response = await fetch("../Views/productPage.html");
+    // let result = await response.text();
+    shop_content.innerHTML =card;
+}
+let getProductPage = async () => {
+    let response = await fetch("../Views/productPage.html")
+    let result = await response.text()
+    return result;
 }
 let getComment = async () => {
     let response = await fetch("../Views/comment.html")
@@ -337,12 +361,12 @@ let loadForgotPassword = async () => {
     let response = await fetch("../Views/forgotpassword.html")
     let result = await response.text()
     shop_content.innerHTML = result;
-    
+
     getPassword()
 }
 
 let getPassword = async () => {
-    document.getElementById("reset-password-btn").addEventListener('click', async  () => {
+    document.getElementById("reset-password-btn").addEventListener('click', async () => {
         resetPassword()
     })
 }
@@ -364,6 +388,36 @@ let catchProfileEvent = (a) => {
     })
 }
 
+//home
+let loadCard = async () => {
+    let request = await fetch("../Views/card.html")
+    let response = await request.text();
+    return response
+}
 
+let renderCard = async (card) => {
+    document.getElementsByClassName("products-container")[0].innerHTML += card
+}
 
-export { initHTML, getMenu, catchProfileEvent, loadProfile }
+let loadFilterBar = async () => {
+    let request = await fetch("../Views/filter.html")
+    let response = await request.text()
+    document.getElementById("filter-bar").innerHTML = response
+}
+
+let loadFooter = async () => {
+    let request = await fetch("../Views/footer.html")
+    let response = await request.text()
+    shop_footer.innerHTML = response
+}
+
+let clickProduct = async () => {
+    let cards = document.getElementsByClassName("product-card")
+    for (let i = 0; i < cards.length; i++){
+        cards[i].addEventListener("click", async () => {
+            loadClickedProduct(i)
+        })
+    }
+}
+
+export { initHTML, getMenu, catchProfileEvent, loadProfile, loadCard, renderCard, getProductPage, loadProductPage, myFirebase }

@@ -1,14 +1,14 @@
 <div class="productPage">
     <!-- tips for a good product page.
     https://www.websitebuilderexpert.com/designing-websites/ecommerce-product-page-design-part-1/ -->
-    <link rel="stylesheet" href="../SCSS/productPage.css">
+    <link rel="stylesheet" href="../SCSS/productPage.css" scoped>
     <div class="product-container">
         <div class="img-and-info">
             <div class="img">
                 <div class="product-image">
                     <div id="PRD-main-img">
                         <!-- img here -->
-                        <img src="https://jooinn.com/images/red-21.jpg" alt="{{product-image}}" style="width:100%;"
+                        <img src="{{img1}}" alt="{{product-image}}" style="width:100%;"
                             class="product-main-img">
                     </div>
                 </div>
@@ -16,26 +16,26 @@
                 <!-- more images -->
                 <div class="img-row">
                     <div class="img-small img-1" id="img-1">
-                        <img src="https://jooinn.com/images/red-21.jpg" alt="" width="100" height="100"
+                        <img src="{{img1.5}}" alt="" width="100" height="100"
                             onmousemove="changeImage(0)" class="vice-img">
                     </div>
                     <div class="img-small img-2" id="img-2">
-                        <img src="https://www.long-time-liner-onlineshop.com/wp-content/uploads/2018/08/Lips_Nude_Pink-1.png"
+                        <img src="{{img2}}"
                             class="vice-img" onmousemove="changeImage(1)" alt="" width="100" height="100">
 
                     </div>
                     <div class="img-small img-3" id="img-3">
-                        <img src="https://skatkatz.com.au/wp-content/uploads/2019/05/681CE6EE-7820-4C13-AA42-89C32E9007B5-600x600.png"
+                        <img src="{{img3}}"
                             alt="" height="100" width="100" class="vice-img" onmousemove="changeImage(2)">
 
                     </div>
                     <div class="img-small img-4" id="img-4">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Solid_black.svg/1024px-Solid_black.svg.png"
+                        <img src="{{img4}}"
                             alt="" height="100" width="100" class="vice-img" onmousemove="changeImage(3)">
 
                     </div>
                     <div class="img-small img-5" id="img-5">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Solid_purple.svg/1024px-Solid_purple.svg.png"
+                        <img src="{{img5}}"
                             alt="" height="100" width="100" class="vice-img" onmousemove="changeImage(4)">
 
                     </div>
@@ -119,7 +119,7 @@
                         </div>
                         <div class="nutrients-content">
                             <!-- remember to add a word limit -->
-                            {{nutrients-content}}
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates inventore optio ad illo fugiat ipsum, magnam doloribus dolorum unde, ratione, ducimus velit maiores dolor molestiae aspernatur aperiam quia cupiditate accusantium? 
                         </div>
                     </div>
                 </div>
@@ -138,10 +138,10 @@
                             Sold by: <a href="">{{shop-name}}</a>
                         </li>
                         <li>
-                            Origin: {{origin}}
+                            Origin: Earth
                         </li>
                         <li>
-                            In stock: {{quantity}}
+                            In stock: {{no-data}}
                         </li>
                         <li>
                             Category: {{category}}
@@ -154,7 +154,7 @@
                     Description
                 </div>
                 <div class="description-content moreInfo-content">
-                    {{description}}
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat rerum deleniti impedit, rem beatae animi asperiores, temporibus eum sed odit, voluptas suscipit et consequuntur magnam eaque a repellendus ab ipsa.
                 </div>
             </div>
         </div>
