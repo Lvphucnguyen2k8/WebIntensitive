@@ -154,7 +154,7 @@ input[type="number"]{
 .more-img{
 	height: 75px;
 	width: 125px;
-	margin-right: 10px;
+	margin: 10px 10px 10px 0px;
 	background-image: url("http://static1.squarespace.com/static/56fc1937c6fc08ffa7bc857a/591280c5579fb3effabdc016/59238e2f9f74568c561ae325/1503633039209/ThumbnailImage.png?format=1500w");
 	background-repeat: no-repeat;
 	background-size:cover;
@@ -174,5 +174,15 @@ input[type="number"]{
 	margin-left: -135px;
 	height: 75px;
 	width:125px;
+	cursor: pointer;
+}
+.add-img{
+	height: 75px;
+	width:125px;
+	font-size: 27px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color:$main;
 	cursor: pointer;
 }

@@ -261,6 +261,7 @@ let addingAOption = () => {
         newOpt = value
         document.getElementById("fruitGroup").innerHTML += `
             <option value="${newOpt}">${newOpt}</option>
+
         `
     }
     value = ""
@@ -281,6 +282,7 @@ let moreImage = async () => {
         target.innerHTML += `
                        <div class="more-img"
                                     style="display: flex; justify-content: center; align-items:  center;">
+
                                 </div>
                                 <div>
                                     <input type="file" name="" class="moreImg-input">
