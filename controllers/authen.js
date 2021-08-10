@@ -75,10 +75,20 @@ let resetPassword = function () {
 
 }
 
+let logOut = function () {
+firebase.auth().signOut()
+    .then((success) => {
+        alert("Success")
+    })
+    .catch((error) => {
+        alert(error.message)
+    })
+}
+
 let showUser = async () => {
     document.getElementById("sign-up-btn").style.display = "none"
     document.getElementById("login-btn").style.display = "none"
     let user = document.getElementById("userEmail").style.display = "block"
 }
 
-export { signUp, signIn, resetPassword }
+export { signUp, signIn, logOut, resetPassword }

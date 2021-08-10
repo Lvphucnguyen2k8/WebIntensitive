@@ -1,5 +1,5 @@
 import { renderCurrencies, renderWeightUnits, initProducts, loadClickedProduct } from "./database.js";
-import { resetPassword, signIn, signUp } from "./authen.js"
+import { resetPassword, signIn, signUp, logOut } from "./authen.js"
 
 var shop_menu = document.createElement('div');
 var shop_content = document.createElement('div');
@@ -372,6 +372,20 @@ let getPassword = async () => {
         resetPassword()
     })
 }
+
+// let loadLogOut = async () => {
+//     let response = await fetch("../views/profile.html")
+//     let result = await response.text()
+//     shop_content.innerHTML = result;
+
+//     catchLogOutEvent()
+// }
+
+// let catchLogOutEvent = async () => {
+//     document.getElementById("log-out-btn").addEventListener('click', async () => {
+//         logOut()
+//     })
+// }
 
 let loadProfile = async function () {
     let response = await fetch("./views/profile.html");
