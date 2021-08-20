@@ -1,5 +1,5 @@
-import { renderCurrencies, renderWeightUnits, initProducts, loadClickedProduct } from "./database.js";
-import { resetPassword, signIn, signUp, logOut } from "./authen.js"
+import { renderCurrencies, renderWeightUnits, initProducts, loadClickedProduct, renderCreditCards, loadCountriesList, loadAddressForm, loadPostOfficeForm, searching, searchingVendors, searchingCategory, searchingPrice } from "./database.js";
+import { resetPassword, signIn, signUp } from "./authen.js"
 
 var shop_menu = document.createElement('div');
 var shop_content = document.createElement('div');
@@ -70,12 +70,20 @@ let getMenu = async () => {
         await loadLogin()
     })
 
+    document.getElementById("search-btn").addEventListener("click", async () => {
+        await searchBar()
+    })
+
 }
 
 let loadMenu = async () => {
     let response = await fetch("../Views/menu.html")
     let result = await response.text()
     shop_menu.innerHTML = result
+
+    document.getElementById("add-product-btn").addEventListener("click", async () => {
+        await loadAddProductPage()
+    })
 }
 
 //home
@@ -84,10 +92,8 @@ let loadHome = async () => {
     let result = await response.text()
     shop_content.innerHTML = result;
 
-    // document.getElementById("product-page-btn").addEventListener("click", loadProductPage)
-    await loadFilterBar()
+    loadFilterBar()
     await initProducts()
-    await clickProduct()
 }
 
 //cart page
@@ -198,6 +204,7 @@ let loadAddProductPage = async () => {
     renderCurrencies()
     renderWeightUnits()
     moreImage()
+    showImage()
 }
 let showImage = () => {
     myFirebase()
@@ -296,7 +303,8 @@ let moreImage = async () => {
 let loadProductPage = async (card) => {
     // let response = await fetch("../Views/productPage.html");
     // let result = await response.text();
-    shop_content.innerHTML =card;
+    shop_content.innerHTML = card;
+
 }
 let getProductPage = async () => {
     let response = await fetch("../Views/productPage.html")
@@ -315,6 +323,26 @@ let loadCategory = async () => {
     let result = await response.text()
     shop_content.innerHTML = result
 
+    document.getElementById("fruits-category-btn").addEventListener("click", async () => {
+        await loadHome()
+        searchingCategory(["Fruits"])
+    })
+    document.getElementById("nuts-category-btn").addEventListener("click", async () => {
+        await loadHome()
+        searchingCategory(["Nuts"])
+    })
+    document.getElementById("exotic-category-btn").addEventListener("click", async () => {
+        await loadHome()
+        searchingCategory(["Exotic"])
+    })
+    document.getElementById("fresh-category-btn").addEventListener("click", async () => {
+        await loadHome()
+        searchingCategory(["fresh"])
+    })
+    document.getElementById("dried-category-btn").addEventListener("click", async () => {
+        await loadHome()
+        searchingCategory(["dried"])
+    })
 }
 let renderComment = (comment) => {
     document.getElementById("comment-content").innerHTML += card
@@ -373,20 +401,6 @@ let getPassword = async () => {
     })
 }
 
-// let loadLogOut = async () => {
-//     let response = await fetch("../views/profile.html")
-//     let result = await response.text()
-//     shop_content.innerHTML = result;
-
-//     catchLogOutEvent()
-// }
-
-// let catchLogOutEvent = async () => {
-//     document.getElementById("log-out-btn").addEventListener('click', async () => {
-//         logOut()
-//     })
-// }
-
 let loadProfile = async function () {
     let response = await fetch("./views/profile.html");
     let result = await response.text()
@@ -403,7 +417,19 @@ let catchProfileEvent = (a) => {
         document.getElementById("profileEmail").textContent = "Email: " + a.user.bc.email
     })
 }
+// let loadLogOut = async () => {
+//     let response = await fetch("../views/profile.html")
+//     let result = await response.text()
+//     shop_content.innerHTML = result;
 
+//     catchLogOutEvent()
+// }
+
+// let catchLogOutEvent = async () => {
+//     document.getElementById("log-out-btn").addEventListener('click', async () => {
+//         logOut()
+//     })
+// }
 //home
 let loadCard = async () => {
     let request = await fetch("../Views/card.html")
@@ -419,6 +445,10 @@ let loadFilterBar = async () => {
     let request = await fetch("../Views/filter.html")
     let response = await request.text()
     document.getElementById("filter-bar").innerHTML = response
+
+    searchVendors()
+    searchCategory()
+    searchPrice()
 }
 
 let loadFooter = async () => {
@@ -428,12 +458,742 @@ let loadFooter = async () => {
 }
 
 let clickProduct = async () => {
-    let cards = document.getElementsByClassName("product-card")
-    for (let i = 0; i < cards.length; i++){
-        cards[i].addEventListener("click", async () => {
-            loadClickedProduct(i)
+    await initProducts()
+    let cards = document.getElementsByClassName("card-content")
+    document.getElementById("1gGy9L0b9uNbWz1K3JdD").addEventListener("click", loadShit(1))
+    console.log(document.getElementById("1gGy9L0b9uNbWz1K3JdD"))
+}
+let loadShit = (id) => {
+    console.log("ahihi")
+}
+
+//purchase page
+// cc = credit card
+let loadPurchasePage = async () => {
+    let request = await fetch('../Views/buy.html')
+    let value = await request.text()
+    shop_content.innerHTML = value;
+
+    await showCC()
+    hideCC()
+    addMore()
+    minusMore()
+    loadForm()
+    buy()
+
+}
+let showCC = async () => {
+    let target = document.getElementById("pay-by-credit-card")
+    target.addEventListener("click", () => {
+        if (target.checked == true) {
+            document.getElementById("card-list").style.display = "block"
+            renderCreditCards()
+
+            return true
+        }
+        if (target.checked == false) {
+            document.getElementById("card-list").style.display = "none"
+
+            return false
+        }
+    })
+}
+let hideCC = () => {
+    let target = document.getElementById("pay-on-delivery")
+    target.addEventListener("click", () => {
+        if (target.checked == true) {
+            document.getElementById("card-list").style.display = "none"
+            return true
+        }
+    })
+
+}
+let loadForm = () => {
+    document.getElementById("private-home").addEventListener("click", () => {
+        document.getElementById("form-address").innerHTML = ""
+        document.getElementById("post-office-address").innerHTML = ""
+
+        let radio = document.getElementById("private-home").checked
+        if (radio == true) {
+            document.getElementById("real-address-form").style.display = "block"
+            loadCountriesList("countries")
+            loadAddressForm()
+            document.getElementById("countries").addEventListener("change", () => {
+                loadAddressForm()
+            })
+        }
+    })
+    document.getElementById("post-office").addEventListener("click", () => {
+        document.getElementById("real-address-form").style.display = "none"
+        document.getElementById("form-address").innerHTML = ""
+        document.getElementById("post-office-address").innerHTML = ""
+        let radio = document.getElementById("post-office").checked
+        if (radio == true) {
+            document.getElementById("post-office-form").style.display = "block"
+            loadCountriesList('post-office-countries')
+            loadPostOfficeForm()
+            document.getElementById("post-office-countries").addEventListener("change", () => {
+                loadPostOfficeForm()
+            })
+        }
+    })
+}
+
+let buy = async () => {
+    let btn = document.getElementById("buy-now-btn")
+    let err = []
+    btn.addEventListener("click", async () => {
+        if (await checkingLeftSide() == false) {
+            return false
+        }
+        let arr = await checkingRightSide()
+        if (arr.includes(undefined || arr.includes(0))) {
+            alert("OOPS! Something's wrong")
+        }
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] != 1) {
+                err.push(1)
+            }
+        }
+        if (err.length == 0) {
+            loadHome()
+            alert("SUCCESSFUL PURCHASE")
+        }
+        console.log(err)
+    })
+}
+
+/////////////////////////////////////
+let checkingRightSide = async () => {
+    let pts = []
+    pts.push(await checkPaymentMethod())
+    pts.push(await checkAddress())
+    pts.push(await checkQuantity())
+    return pts
+}
+let checkArr = async () => {
+    return 1
+}
+
+//////////////////////////////////
+let checkAddress = async () => {
+    let private_house = document.getElementById("private-home").checked
+    let post_office = document.getElementById("post-office").checked
+    if (private_house == true) {
+        let pts = 0
+        pts += await checkPrivateHouse()
+        if (pts == 1) {
+            return 1
+        }
+    }
+    if (post_office == true) {
+        let pts = 0
+        pts += await checkPostOffice()
+        if (pts == 1) {
+            return 1
+        }
+    }
+    if (private_house == false && post_office == false) {
+        alert("Must choose one of the addresses")
+        return 0
+    }
+}
+
+let checkPrivateHouse = async () => {
+    let select = document.getElementById("countries").value
+    let beginNum = 1
+    const countryThatHasStates = [
+        "India",
+        "USA",
+        "America",
+        "Brazil",
+        "Nigeria",
+        "Mexico",
+        "Ethiopia",
+        "Germany",
+        "Myanmar",
+        "Australia",
+        "South Sudan",
+        "Micronesia",
+        "Palau"
+    ]
+    const address = [
+
+        {
+            name: "State",
+        },
+        {
+            name: "City/Province"
+        },
+        {
+            name: "District"
+        },
+        {
+            name: "Ward"
+        },
+        {
+            name: "Street name"
+        },
+        {
+            name: "House_number"
+        }
+    ]
+    let err = []
+    for (let i = 0; i < countryThatHasStates.length; i++) {
+        if (select == countryThatHasStates[i]) {
+            beginNum = 0
+        }
+    }
+    for (let i = beginNum; i < address.length; i++) {
+        let val = document.getElementById(address[i].name).value
+        err.push(isEmpty(val))
+    }
+    if (err.includes(true)) {
+        alert("Private home address: \n - Input cannot be empty")
+        return 0
+    }
+    let checkArr = () => {
+        return "false"
+    }
+    if (err.every(checkArr)) {
+        return 1
+    }
+}
+
+let checkPostOffice = async () => {
+    let select = document.getElementById("countries").value
+    let beginNum = 1
+    const countryThatHasStates = [
+        "India",
+        "USA",
+        "America",
+        "Brazil",
+        "Nigeria",
+        "Mexico",
+        "Ethiopia",
+        "Germany",
+        "Myanmar",
+        "Australia",
+        "South Sudan",
+        "Micronesia",
+        "Palau"
+    ]
+    const postOfficeAddress = [
+        "State",
+        "City/ Province",
+        "District",
+        "Street",
+        "Zip/ Postal Code",
+
+    ]
+    let err = []
+    for (let i = 0; i < countryThatHasStates.length; i++) {
+        if (select == countryThatHasStates[i]) {
+            beginNum = 0
+        }
+    }
+    for (let i = beginNum; i < postOfficeAddress.length; i++) {
+        let val = document.getElementById(postOfficeAddress[i]).value
+        err.push(isEmpty(val))
+    }
+    if (err.includes(true)) {
+        alert("Post Office Address: \n - Input cannot be empty")
+        return 0
+    }
+    let checkArr = () => {
+        return "false"
+    }
+    if (err.every(checkArr)) {
+        return 1
+    }
+}
+let checkQuantity = async () => {
+    let qtt = document.getElementsByClassName("product-quantity")[0]
+    if (qtt.value == 0 || qtt.value.includes("-")) {
+        alert("Quantity cannot be negative and 0")
+        return 0
+    }
+    if (qtt.value != 0 && !qtt.value.includes("-")) {
+        return 1
+    }
+    console.log(qtt)
+}
+//////////////////////////////////
+let checkPaymentMethod = async () => {
+    let cc = document.getElementById("pay-by-credit-card").checked
+    let od = document.getElementById("pay-on-delivery").checked
+    if (cc == false && od == false) {
+        alert("must choose one of two payment methods")
+        return 0
+    } else if (cc == true) {
+        let pts = 0
+        let cc = await checkCC()
+        return cc
+    }
+    if (od == true) {
+        return 1
+    }
+}
+
+let checkCC = async () => {
+    let pts = 0
+    pts += await checkCCT()
+    pts += await checkCCI()
+    pts += dateCompare()
+    if (pts == 3) {
+        return 1
+    }
+}
+
+let checkCCT = async () => {
+    let CCs = document.getElementsByClassName("credit-cards")
+    let arr = [];
+    for (let i = 0; i < CCs.length; i++) {
+        arr.push(CCs[i].checked)
+    }
+    if (arr.includes(true)) {
+        return 1
+    } else {
+        alert("Must choose a credit card")
+        return false
+    }
+}
+
+let checkCCI = async () => {
+    let input_arr = ["card-number", "name-on-card"]
+    let pts = 0
+    let cardNum = document.getElementById("card-number").value
+
+    for (let i = 0; i < input_arr.length; i++) {
+        let ck = isNotFilled(document.getElementById(input_arr[i]))
+        pts += ck
+    }
+    pts += isIncludeAlphabet(cardNum)
+    if (cardNum.length == 16) {
+        pts += 1
+    }
+
+    if (document.getElementById("name-on-card").value.length > 4) {
+        pts += 1
+    }
+
+    if (pts == 5) {
+        return 1
+    } else {
+        alert("- Input cant be empty \n - Card numbers cant include alphabetic characters, special characters and must have 16 digits  \n  - Must be longer than 5 characters ")
+        return false
+    }
+
+}
+
+let dateCompare = () => {
+    return isNotFilled(document.getElementById("expiration-date").value)
+}
+
+/////////////////////////////////////
+let checkingLeftSide = async () => {
+    let first_name = await checkFirstName()
+    let last_name = await checkLastName()
+    let phone_number = await checkPhoneNumber()
+    let checkArray = () => {
+        return "valid"
+    }
+    let arr = [first_name, last_name, phone_number]
+    if (arr.includes(false)) {
+        return false
+    }
+    if (arr.every(checkArray)) {
+        return true
+    }
+}
+let checkFirstName = async () => {
+    let name = document.getElementById("first-name").value
+    let points = 0
+    points += isNotFilled(name)
+    points += isIncludeInvalidChars(name)
+    points += isLongerThan(name, 100)
+    if (points == 3) {
+        return "valid"
+    }
+    if (points != 3) {
+        alert("First name must: \n - Shorter than 100 characters \n - Not includes special characters \n - Not empty")
+        return false
+    }
+
+}
+let checkLastName = async () => {
+    let name = document.getElementById("last-name").value
+    let points = 0
+    points += isNotFilled(name)
+    points += isIncludeInvalidChars(name)
+    points += isLongerThan(name, 100)
+    if (points == 3) {
+        return "valid"
+    }
+    if (points != 3) {
+        alert("Last name must: \n - Shorter than 100 characters \n - Not includes special characters \n - Not empty")
+        return false
+    }
+}
+let checkPhoneNumber = async () => {
+    let phone = document.getElementById("buy-phoneNum").value
+    phone = phone.trim()
+    let points = 0
+    points += isNotFilled(phone)
+    points += isIncludeAlphabet(phone)
+    if (phone.length > 9) {
+        points += 1
+    }
+
+    if (phone.length < 12) {
+        points += 1
+    }
+    if (points == 4) {
+        return "valid"
+    } if (points != 4) {
+        alert("Phone number must: \n - Not empty \n - Longer than 9 digits \n - Shorter than 12 digits \n - Not include special characters and alphabet letters ")
+        return false
+    }
+}
+
+
+///////////////////////////////////////
+let isNotFilled = (input) => {
+    if (input.value == "" || input.value == " " || input.length == 0) {
+        return 0
+    } else {
+        return 1
+    }
+}
+let isIncludeInvalidChars = (input) => {
+    let invalid = "~!@#$%^&*()`_+-={}|[]\;:'<>?,./1234567890" + '"'
+    let err = []
+    invalid = invalid.split('')
+    for (let i = 0; i < invalid.length; i++) {
+        if (input.includes(invalid[i])) {
+            err.push(invalid[i])
+        }
+    }
+    if (err.length == 0) {
+        return 1
+    }
+    if (err.length != 0) {
+        return 0
+    }
+}
+let isIncludeAlphabet = (input) => {
+    let invalid = "!@#$%^&*`{}|[]()-\=_+;:'<>?,./qwertyuiopasdfghjklzxcvbnm" + '"'
+    let err = []
+    for (let i = 0; i < invalid.length; i++) {
+        if (input.includes(invalid[i])) {
+            err.push(invalid[i])
+        }
+    }
+    if (err.length != 0) {
+        return 0
+    } else if (err.length == 0) {
+        return 1
+    }
+}
+let isShorterThan = (input, number) => {
+    let length = input.length
+    if (length < number) {
+        return 0
+    } else {
+        return 1
+    }
+}
+let isLongerThan = (input, number) => {
+    let length = input.length
+    if (length > number) {
+        return 0
+    } else {
+        return 1
+    }
+}
+
+/////////////////////////
+let getPurchasePage = async () => {
+    let response = await fetch("../Views/buy.html")
+    let result = await response.text()
+    return result
+}
+let replaceFunc = async (img, title, price, vendor, category) => {
+    // let html = await getPurchasePage()
+    // html.replace("{{img}}", img)
+    //     .replace("{{title}}", title)
+    //     .replace("{{category}}", category)
+    //     .replace("{{price}}", price)
+    //     .replace("{{shop-name}}", vendor)
+    shop_content.innerHTML = `
+                    <div class="add-product-container buy-product-container ">
+    <link rel="stylesheet" href="../SCSS/addProductPage.css" scoped>
+    <link rel="stylesheet" href="../SCSS/buy.css">
+    <div class="container">
+        <div class="contact-wrap w-100 p-md-5 p-4">
+            <div id="form-message-warning" class="mb-4">
+                <h2 style="color: black;">Choose a payment method</h2>
+            </div>
+            <form method="POST" id="buy-product" name="buy-product" class="buy-product" onsubmit="return false">
+                <div class="row">
+                    <div>
+                        <div class="payment-menthod">
+                            <div>
+                                <input type="radio" name="paymentMethod" value="credit-card" id="pay-by-credit-card">
+                                <label for="" class="paymentMethod">
+                                    Pay by credit card
+                                </label>
+                            </div>
+                            <div>
+                                <div id="card-list" style="display: none;">
+                                    <div>
+                                        <div class="form__group field">
+                                            <input type="input" class="form__field" placeholder="Card number"
+                                                name="card-number" id="card-number" />
+                                            <label for="" class="form__label">Card number</label>
+                                        </div>
+
+                                        <div class="form__group field">
+                                            <input type="input" class="form__field" placeholder="Name on card"
+                                                name="name-on-card" id="name-on-card" />
+                                            <label for="" class="form__label">Name on card</label>
+                                        </div>
+
+                                        <div class="form__group field">
+                                            <label for=""> Expiration Date</label>
+                                            <input type="date" id="expiration-date" name="expiration-date">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span>-----------------------------------</span>
+                        <div class="payment-menthod">
+                            <input type="radio" name="paymentMethod" value="delivery" id="pay-on-delivery">
+                            <label for="" class="paymentMethod">
+                                Payment on delivery
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="form-message-warning" class="mb-4">
+                            <h2 style="color: black;">Address</h2>
+                        </div>
+                        <div>
+                            <div>
+                                <div>
+                                    <input type="radio" value="private home address" id="private-home" name="address">
+                                    <label for="" class="paymentMethod">Private home address</label>
+                                </div>
+                                <span>-----------------------------------</span>
+                                <div>
+                                    <input type="radio" value="post-office" id="post-office" name="address">
+                                    <label for="" class="paymentMethod">Post Office</label>
+                                </div>
+                            </div>
+
+                            <div id="real-address-form" style="display : none;">
+                                <label for="" class="select">Your country (or territory)</label>*:</label>
+                                <select id="countries">
+                                    <option value="USA" selected>USA (default)</option>
+                                </select>
+                                <div id="form-address">
+
+                                </div>
+                            </div>
+                            <div id="post-office-form" style="display : none;">
+                                <label for="" class="select">Your country (or territory)</label>*:</label>
+                                <select id="post-office-countries">
+                                    <option value="USA" selected>USA (default)</option>
+                                </select>
+                                <div id="post-office-address">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="form-message-warning" class="mb-4">
+                        <h2 style="color: black;">Quantity</h2>
+                    </div>
+                    <div>
+                        <div class="content" style="display:flex; flex-direction: row;" id="user-cart">
+                            <!-- adding product here -->
+                            <!-- Open the code if you want to see the page interface -->
+                            <!-- THIS IS AN EXAMPLE -->
+                            <div style="display:flex; align-items: flex-start;">
+                                <div style="display:flex; align-items: center; border: none;">
+                                    <form action="" onsubmit="return false">
+                                        <label class="toggle">
+                                            <input class="toggle__input checkbox" type="checkbox" style="opacity: 0;">
+                                            <span class="toggle__label">
+                                        </label>
+                                    </form>
+                                    <div class="cart-product-img" style="padding: 0px;">
+
+                                        <img src="${img}" alt="" width="80" height="80" style="margin-right: 20px; padding: 0;">
+                                    </div>
+
+                                </div>
+
+                                <div class="desc" style="text-align: left; border: none;">
+                                    <h3> ${title}
+                                    </h3>
+                                    <p class="small" style="width:600px;">
+                                        ${category}
+                                    </p>
+
+                                    <h4 class="product-price">
+                                        ${price}<sup>$</sup>
+                                    </h4>
+                                    <div style="display: flex;">
+                                        <p>${vendor} </p>
+                                    </div>
+                                    <div class="quantity">
+                                        <div class="punctuation-plus">
+                                            <span>+</span>
+                                        </div>
+                                        <div>
+                                            <input type="number" name="num" id="" class="product-quantity" min="0"
+                                                value="1">
+                                        </div>
+                                        <div class="punctuation-minus" style="margin-left: -120px;">
+                                            <span>-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <div class="btn btn-primary" id="buy-now-btn" style="margin-top: 20px;">Buy
+                                now</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div style="display:flex; width: 600px;">
+            <div class="info-wrap p-md-5 " style="padding: 4px; background-color: #007bff; ">
+                <h3>Purchase Page</h3>
+                <div class="dbox" style="margin-top:40px; display:flex;">
+                    <div class="icon center">
+                        <span class="fas fa-signature"></span>
+                    </div>
+                    <div class="text">
+                        <p><span>First name:</span>
+                            <input type="text" class="g-input" name="name" id="first-name" placeholder="First Name"
+                                style="background-color: transparent; border:none; border-bottom: 1px solid white; color:white; outline: none;">
+                        </p>
+                    </div>
+                </div>
+                <div class="dbox " style="margin-top:40px; display:flex;">
+                    <div class="icon center">
+                        <span class="fas fa-signature"></span>
+                    </div>
+                    <div class="text ">
+                        <p><span>Last name:</span> <input type="text" class="g-input" name="name" id="last-name"
+                                placeholder="Last name"
+                                style="background-color: transparent; border:none; border-bottom: 1px solid white; color:white; outline: none;">
+                        </p>
+                    </div>
+                </div>
+                <div class="dbox  " style="margin-top:40px; display:flex;">
+                    <div class="icon center">
+                        <span class="fa fa-phone"></span>
+                    </div>
+                    <div class="text">
+                        <p><span>Phone number:</span> <a>
+                                <input type="text" class="g-input" name="" id="buy-phoneNum" placeholder="phone"
+                                    style="background-color: transparent; border:none; border-bottom: 1px solid white; color:white; outline: none;">
+                            </a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                    `
+    await showCC()
+    hideCC()
+    addMore()
+    minusMore()
+    loadForm()
+    buy()
+}
+
+//////////////////////
+//search 
+let searchBar = async () => {
+    await loadHome()
+    document.getElementsByClassName("products-container")[0].innerHTML = ""
+
+    let val = document.getElementById("main-search-bar").value
+    searching(val)
+}
+
+//filter 
+let searchVendors = async () => {
+    let checkboxes = document.getElementsByClassName("fruits_vendor")
+    let arr = [];
+    for (let i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].addEventListener("click", async () => {
+            arr = []
+            for (let b = 0; b < checkboxes.length; b++) {
+                if (checkboxes[b].checked == true) {
+                    arr.push(checkboxes[b].value)
+                }
+            }
+            searchingVendors(arr)
+            if (arr.length == 0) {
+                await initProducts()
+            }
         })
     }
 }
 
-export { initHTML, getMenu, catchProfileEvent, loadProfile, loadCard, renderCard, getProductPage, loadProductPage, myFirebase }
+let searchCategory = async => {
+    let checkboxes = document.getElementsByClassName("categories-category")
+    let arr = []
+    for (let i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].addEventListener("click", async () => {
+            arr = []
+            for (let b = 0; b < checkboxes.length; b++) {
+                if (checkboxes[b].checked == true) {
+                    arr.push(checkboxes[b].value)
+                }
+            }
+            console.log(arr)
+            searchingCategory(arr)
+            if (arr.length == 0) {
+                await initProducts()
+            }
+        })
+    }
+}
+
+let searchPrice = async () => {
+    document.getElementById("apply").addEventListener("click", async () => {
+        let price1 = document.getElementById("price1")
+        let price2 = document.getElementById("price2")
+        if (isNotFilled(price1) == 0 || isNotFilled(price2) == 0) {
+            alert("Input cannot be empty")
+            return false
+        }
+        price1 = price1.value
+        price2 = price2.value
+        if (price1.includes("-") || price2.includes("-")) {
+            alert("Input value cannot be negative")
+            return false
+        }
+
+        let val1 = Number(price1)/100
+        let val2 = Number(price2)/100
+        console.log(val1, val2)
+        await searchingPrice(val1, val2)
+    })
+}
+
+export { initHTML, getMenu, catchProfileEvent, loadProfile, loadCard, renderCard, getProductPage, loadProductPage, myFirebase, clickProduct, loadHome, getPurchasePage, replaceFunc }

@@ -75,10 +75,19 @@ let resetPassword = function () {
 
 }
 
+let showUser = async () => {
+    installFirebase()
+
+    document.getElementById("sign-up-btn").style.display = "none"
+    document.getElementById("login-btn").style.display = "none"
+    let user = document.getElementById("userEmail").style.display = "block"
+}
+
+
 let logOut = function () {
     installFirebase()
 
-        firebase.auth().signOut()
+    firebase.auth().signOut()
         .then((success) => {
             alert("Success")
         })
@@ -87,10 +96,4 @@ let logOut = function () {
         })
 }
 
-let showUser = async () => {
-    document.getElementById("sign-up-btn").style.display = "none"
-    document.getElementById("login-btn").style.display = "none"
-    let user = document.getElementById("userEmail").style.display = "block"
-}
-
-export { signUp, signIn, logOut, resetPassword }
+export { signUp, signIn, resetPassword }
