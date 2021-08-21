@@ -1,0 +1,267 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+$main-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+$shopee-primary: #ee4d2d;
+$bg-color:#f5f5f5;
+$secondary: #0055AA;
+.productPage {
+    width: 100%;
+    margin: 0px;
+    font-family: $main-font;
+}
+
+.product-container {
+    background-color: $bg-color;
+    padding: 50px 120px 50px 120px;
+}
+
+// product image
+.product-image {
+    background-color: $bg-color;
+    border: 20px solid rgb(255, 255, 255);
+    height: 550px;
+    width: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+        width: 100%;
+    }
+}
+.img-and-info {
+    display: flex;
+}
+.product-info {
+    margin-left: 40px;
+    width: 55%;
+}
+
+//add to favorite heart btn
+.fa-heart{
+    font-size:25px;
+    color:rgba(0, 0, 0, 0.171);
+    cursor: pointer;
+    &:active, &:focus, &:hover{
+        color:red;
+    }
+}
+
+//title
+.product-title {
+    border-bottom: 3px solid $shopee-primary;
+    width: fit-content;
+    padding-bottom: 20px;
+    margin-bottom: 15px;
+    margin-top: 0px;
+}
+.title{
+    margin: 0px;
+}
+
+//assessment div
+.fa-star {
+    color: rgb(167, 163, 163);
+}
+.assessment {
+    display: flex;
+}
+.rating-star,
+.review,
+.sold {
+    border-right: 1px solid gray;
+    padding-right: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.review-number,
+.sold-number {
+    text-decoration: underline;
+    color: red;
+}
+
+//price div
+.priceDiv {
+    width: 90%;
+    height: 100px;
+    border: 10px solid $shopee-primary;
+    outline: white solid 10px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0px 20px 0px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+#price {
+    font-size: 50px;
+    color: red;
+}
+.oldPrice {
+    color: gray;
+    margin: 10px;
+    font-size: 25px;
+    margin-top: -15px;
+}
+
+//nutrients div
+.nutrients-title {
+    border-bottom: 2px solid $shopee-primary;
+    width: fit-content;
+    height: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.nutrients-content {
+    line-height: 30px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+//add to cart button
+//and buy now button
+
+.set {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    &:focus,
+    &:active {
+        outline: none;
+    }
+}
+
+.wrapper,
+.icon {
+    position: relative;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.wrapper .tooltip {
+    position: absolute;
+    top: 0;
+    font-size: 14px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+}
+.tooltip {
+    width: 86px;
+}
+.wrapper .tooltip::before {
+    position: absolute;
+    bottom: -10px;
+}
+.wrapper .icon:hover .tooltip {
+    top: -35px;
+    opacity: 1;
+}
+
+.add-to-cart-wrapper:hover,
+.add-to-cart-tt,
+.tooltip {
+    background-color: red;
+    color: #ffffff;
+}
+
+.add-to-cart-wrapper {
+    background-color: rgba(255, 87, 34, 0.1);
+    border: 1px solid $shopee-primary;
+}
+
+//more info
+.moreInfo-description {
+    margin-top: 75px;
+}
+.MF {
+    height: 100px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 15px solid white;
+    background-color: $bg-color;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+//description
+.moreInfo-content, .moreInfo-description {
+    padding: 10px 20px 10px 20px;
+    font-size: 20px;
+    background-color:white;
+}
+a{
+    color: $secondary;
+    text-decoration: none;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+ul, li{
+    line-height: 50px;
+}
+
+//comment section
+
+.g-width-50 {
+    width: 50px;
+}
+
+@media (min-width: 0){
+    .g-pa-30 {
+        padding: 2.14286rem;
+    }
+}
+
+.g-bg-secondary {
+    background-color: white ;
+}
+
+.u-shadow-v18 {
+    box-shadow: 0 5px 10px -6px rgba(0, 0, 0, 0.15);
+}
+
+.g-color-gray-dark-v4 {
+    color: #777 ;
+}
+
+.g-font-size-12 {
+    font-size: 0.85714rem;
+}
+
+.media-comment {
+    margin-top:20px
+}
+.img-small{
+
+    border: 5px solid white;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    &:hover{
+        position: relative;
+        bottom: 10px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    }
+}
+.img-row{
+    display: flex;
+    justify-content:center;
+    flex-grow: 1;
+    box-sizing: border-box;
+}

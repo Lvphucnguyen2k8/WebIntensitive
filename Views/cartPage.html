@@ -1,0 +1,74 @@
+<div class="cart-container">
+    <link rel="stylesheet" href="../SCSS/cartPage.css" scoped>
+    <div class="container">
+        <div>
+            <div class="row" style="display:flex;">
+                <div class="col">
+
+                    <!-- title -->
+                    <div
+                        style="width:990px; display: flex; flex-direction: row-reverse; justify-content:space-between; background-color:white; padding :15px;">
+                        <div>
+                            <span class="pull-right">(<strong id="items-quantity">0</strong>) items</span>
+
+                        </div>
+                        <div style="display: flex;">
+                            <form action="" onsubmit="return false">
+                                <label class="toggle">
+                                    <input class="toggle__input checkbox" type="checkbox" style="opacity: 0;"
+                                        id="select-all">
+                                    <span class="toggle__label">
+                                </label>
+                            </form>
+                            <h5>Product</h5>
+                        </div>
+                    </div>
+
+                    <!-- content -->
+
+                    <div class="content" style="display:flex; flex-direction: row;">
+                        <!-- adding product here -->
+                        <!-- Open the code if you want to see the page interface -->
+                        <!-- THIS IS AN EXAMPLE -->
+                        <div id="cart-cart">
+                        </div>
+
+
+                    </div>
+                    <!-- buy now btn adn continue shopping btn -->
+                    <div class="content" style="display:flex;">
+                        <button class="btn" style="margin-bottom: 10px; background-color: #0d6efd; color:white;" id="buy-items-btn"><i
+                                class="fa fa-shopping-cart"></i>
+                            Buy now</button>
+                    </div>
+
+                </div>
+
+                <!-- cart summary div -->
+                <div class="col">
+                    <div class="title" style="display: flex; flex-direction: column; text-align: left; padding: 0px;">
+                        <div class="title">
+                            <h5>Cart Summary</h5>
+                        </div>
+                        <div class="content">
+                            <h2 id="items-summary">
+                                0
+                            </h2>
+
+                        </div>
+                    </div>
+
+                    <!-- support div -->
+                    <div>
+                        <div class="title">
+                            <h5>Support</h5>
+                        </div>
+                        <div class="content" style="text-align:center;">
+                            <h3><i class="fa fa-phone"></i>+84 868958402</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

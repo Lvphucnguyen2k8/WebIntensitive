@@ -1,0 +1,168 @@
+.menu-container {
+  background-color: #f5f5f5;
+}
+
+h1 {
+  font-weight: 300 !important;
+  color: white;
+}
+
+i {
+  cursor: pointer;
+}
+
+.navigation-bar {
+  height: 40px;
+  width: 100%;
+  background-color: #00c900;
+  color: white;
+  padding: 0px 50px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.nav-btn {
+  margin: 15px;
+  cursor: pointer;
+}
+
+.nav-btn p {
+  margin-top: 20px;
+  font-size: 17px;
+}
+
+.nav-btn:hover {
+  opacity: 0.9;
+  text-decoration: underline;
+}
+
+.left-side,
+.right-side {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.left-side p,
+.right-side p {
+  margin-bottom: 20px;
+}
+
+.header {
+  background-color: #00c900;
+  width: 100%;
+}
+
+.header-2 {
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  height: 100px;
+  padding: 0px 60px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.search-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#main-search-bar {
+  outline: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 40px;
+  width: 500px;
+  padding: 0px 20px;
+  background-color: rgba(0, 0, 0, 0.226);
+  color: white;
+  border: 2px solid white;
+  margin: 0px;
+}
+
+#main-search-bar::-webkit-input-placeholder {
+  color: white;
+  opacity: 0.5;
+}
+
+#main-search-bar:-ms-input-placeholder {
+  color: white;
+  opacity: 0.5;
+}
+
+#main-search-bar::-ms-input-placeholder {
+  color: white;
+  opacity: 0.5;
+}
+
+#main-search-bar::placeholder {
+  color: white;
+  opacity: 0.5;
+}
+
+#search-btn {
+  border: none;
+  outline: none;
+  height: 40px;
+  margin: 0px;
+  padding: 0px 15px;
+  position: relative;
+  left: -5px;
+  top: -1px;
+  background-color: white;
+  color: #00c900;
+}
+
+#search-btn i {
+  font-weight: bold;
+}
+
+.fa-shopping-cart {
+  font-size: 30px;
+  color: white;
+}
+
+.cart {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 50px;
+}
+
+.products-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+/*# sourceMappingURL=home.css.map */

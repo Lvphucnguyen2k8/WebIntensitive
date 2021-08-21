@@ -1,0 +1,122 @@
+.filter-container {
+  background-color: white;
+  width: 275px;
+  height: 100%;
+  margin-left: 50px;
+  padding: 30px;
+  margin-bottom: 50px;
+}
+
+.filter-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  margin-bottom: 20px;
+}
+
+.filter-title span {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.fa-filter {
+  font-size: 25px;
+}
+
+.section {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.section i {
+  margin-right: 10px;
+}
+
+input[type="checkbox"] {
+  height: 15px;
+  border-radius: 0px;
+  width: 15px;
+  outline: none;
+  margin-right: 10px;
+}
+
+.option {
+  margin-top: 20px;
+}
+
+.option form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.label {
+  position: relative;
+  bottom: 2px;
+  font-size: small;
+}
+
+hr {
+  margin-top: 20px;
+}
+
+input[type="number"] {
+  outline: none;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  font-size: 15px;
+  width: 100%;
+  -webkit-transition-duration: 0.3;
+          transition-duration: 0.3;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+input[type="number"]:focus, input[type="number"]:active, input[type="number"]:hover {
+  border-bottom-color: green;
+}
+
+input[type="number"]::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0.288);
+}
+
+input[type="number"]:-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.288);
+}
+
+input[type="number"]::-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0.288);
+}
+
+input[type="number"]::placeholder {
+  color: rgba(0, 0, 0, 0.288);
+}
+
+.fa-arrows-alt-v {
+  width: 20px;
+  text-align: center;
+  margin: 15px;
+}
+
+.stars-row {
+  margin: 10px 0px;
+}
+
+.stars-row i {
+  margin: 0px 2px;
+}
+/*# sourceMappingURL=filter.css.map */

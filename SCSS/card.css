@@ -1,0 +1,116 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: black;
+}
+
+.product-card {
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  margin: 10px;
+}
+
+.product-card:hover {
+  position: relative;
+  top: -10px;
+}
+
+.card-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  background-image: #00c900;
+}
+
+.product-img {
+  height: 200px;
+  width: 225px;
+  background-color: #00c900;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.product-img img {
+  max-height: 200px;
+  width: 225px;
+  margin: auto;
+}
+
+.product-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: space-between;
+      -ms-flex-align: space-between;
+          align-items: space-between;
+  height: 260px;
+  width: 325px;
+  background-color: white;
+  padding: 20px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 35px;
+  margin: 0px;
+}
+
+.fa-star {
+  color: #dad6d6;
+}
+
+.ratings {
+  background-color: white;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0px 10px;
+  border-bottom-right-radius: 15px;
+  margin-left: -10px;
+}
+
+.fa-heart {
+  margin-top: -5px;
+  color: #dad6d6;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+}
+
+.fa-heart:hover, .fa-heart:focus {
+  color: red;
+}
+
+hr {
+  margin: 5px;
+}
+
+p {
+  margin: 0px;
+}
+/*# sourceMappingURL=card.css.map */

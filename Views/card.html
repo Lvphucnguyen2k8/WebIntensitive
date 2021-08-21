@@ -1,0 +1,47 @@
+<div class="product-card" id="{{id}}">
+    <link rel="stylesheet" href="../SCSS/card.css" scoped=>
+    <div class="card-content">
+        <div class="product-img">
+            <div>
+                <img src="{{image}}" alt="Sorry! This object has no photo">
+            </div>
+        </div>
+        <div class="product-info">
+            <div>
+                <div style="width: 100%; display: flex; justify-content: space-between;">
+                    <div class="ratings">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <div>
+                        <i class="fa fa-heart"></i>
+                    </div>
+                </div>
+
+                <!-- character limit: 51 characters (including spaces)-->
+                <p class="title">{{title}}</p>
+                <small class="product-category">{{category}}</small>
+                <hr>
+                <p style="font-weight: bold; font-size:18px;">
+                    INFO
+                </p>
+
+                <!-- character limit: 135 (including spaces) -->
+                <small>
+                    lorem ipsum dolor sit amet, consectetur adipisicing elit...
+                </small>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <small>
+                    {{vendor}}
+                </small>
+                <h2 style="text-align: right; " class="price">
+                    {{price}}$
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>

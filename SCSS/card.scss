@@ -1,0 +1,82 @@
+$standard-height: 200px;
+$standard-width: 225px;
+$bg-color: rgb(0, 201, 0);
+$shadow: #110c2e26 0px 48px 100px 0px;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: black;
+}
+.product-card {
+    transition-duration: 0.3s;
+    margin: 10px;
+    &:hover {
+        position: relative;
+        top: -10px;
+    }
+}
+.card-content {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-image: $bg-color;
+}
+.product-img {
+    height: $standard-height;
+    width: $standard-width;
+    background-color: $bg-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img {
+        max-height: $standard-height;
+        width: $standard-width;
+        margin: auto;
+    }
+}
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
+    height: $standard-height + 60;
+    width: $standard-width + 100;
+    background-color: white;
+    padding: 20px;
+}
+.title {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 35px;
+    margin: 0px;
+}
+.fa-star {
+    color: #dad6d6;
+}
+.ratings {
+    background-color: white;
+    width: fit-content;
+    padding: 0px 10px;
+    border-bottom-right-radius: 15px;
+    margin-left: -10px;
+}
+.fa-heart {
+    margin-top: -5px;
+    color: #dad6d6;
+    transition-duration: 0.2s;
+    &:hover,
+    &:focus {
+        color: red;
+    }
+}
+hr {
+    margin: 5px;
+}
+p {
+    margin: 0px;
+}
