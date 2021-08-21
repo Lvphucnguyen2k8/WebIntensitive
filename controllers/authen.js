@@ -84,16 +84,16 @@ let showUser = async () => {
 }
 
 
-let logOut = function () {
-    installFirebase()
+// let logOut = function () {
+//     installFirebase()
 
-    firebase.auth().signOut()
-        .then((success) => {
-            alert("Success")
-        })
-        .catch((error) => {
-            alert(error.message)
-        })
-}
+//     firebase.auth().signOut()
+//         .then((success) => {
+//             alert("Success")
+//         })
+//         .catch((error) => {
+//             alert(error.message)
+//         })
+// }
 
 export { signUp, signIn, resetPassword }

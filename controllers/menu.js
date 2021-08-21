@@ -62,6 +62,10 @@ let getMenu = async () => {
         await loadCategory()
     })
 
+    document.getElementById("support-btn").addEventListener("click", async () => {
+        await loadSupportPage()
+    })
+
     document.getElementById("sign-up-btn").addEventListener("click", async () => {
         await loadSignUp();
     })
@@ -348,6 +352,64 @@ let renderComment = (comment) => {
     document.getElementById("comment-content").innerHTML += card
 }
 
+//support page
+
+let loadSupportList1 = async function() {
+    let response = await fetch("./Views/support_list1.html");
+    let result = await response.text()
+    shop_content.innerHTML = result;
+}
+
+  let loadSupportList2 = async function() {
+    let response = await fetch("./Views/support_list2.html");
+    let result = await response.text()
+    shop_content.innerHTML = result;
+}
+
+  let loadSupportList3 = async function() {
+    let response = await fetch("./Views/support_list3.html");
+    let result = await response.text()
+    shop_content.innerHTML = result;
+}
+
+  let loadSupportList4 = async function() {
+    let response = await fetch("./Views/support_list4.html");
+    let result = await response.text()
+    shop_content.innerHTML = result;
+}
+
+  let loadSupportList5 = async function() {
+    let response = await fetch("./Views/support_list5.html");
+    let result = await response.text()
+    shop_content.innerHTML = result;
+}
+
+let loadSupportPage = async function() {
+    let response = await fetch("./Views/support.html");
+    let result = await response.text()
+    shop_content.innerHTML = result;
+    
+    document.getElementById("support_list1").addEventListener('click', async () => {
+        loadSupportList1()
+    })
+
+    document.getElementById("support_list2").addEventListener('click', async () => {
+        loadSupportList2()
+    })
+
+    document.getElementById("support_list3").addEventListener('click', async () => {
+        loadSupportList3()
+    })
+
+    document.getElementById("support_list4").addEventListener('click', async () => {
+        loadSupportList4()
+    })
+
+    document.getElementById("support_list5").addEventListener('click', async () => {
+        loadSupportList5()
+    })
+}
+
 //sign up and login 
 
 let loadSignUp = async () => {
@@ -417,6 +479,7 @@ let catchProfileEvent = (a) => {
         document.getElementById("profileEmail").textContent = "Email: " + a.user.bc.email
     })
 }
+
 // let loadLogOut = async () => {
 //     let response = await fetch("../views/profile.html")
 //     let result = await response.text()
@@ -431,6 +494,7 @@ let catchProfileEvent = (a) => {
 //     })
 // }
 //home
+
 let loadCard = async () => {
     let request = await fetch("../Views/card.html")
     let response = await request.text();
