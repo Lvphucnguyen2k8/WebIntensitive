@@ -1,0 +1,4 @@
+footer
+them nguon tham khao, ban quyen, tham khao code tu dau 
+khong noi vong vo, soan kich ban san 
+them phan lam ve firestore

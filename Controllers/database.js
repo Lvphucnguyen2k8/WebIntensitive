@@ -661,6 +661,7 @@ let initProduct = async (data) => {
 }
 
 let loadClickedProduct = async (id) => {
+
     var db = firebase.firestore();
 
     db.collection("Products").get().then(async (results) => {
@@ -687,8 +688,14 @@ let loadClickedProduct = async (id) => {
                     .replace("{{shop-name}}", vendor)
                     .replace("{{category}}", category)
 
+                
                 await loadProductPage(html)
                 document.getElementById("buy-now-btn").addEventListener("click", async () => {
+                    let user = document.getElementById("userEmail").textContent
+                    if (user.trim() == "bruh") {
+                        alert("Please sign up/login")
+                        return false
+                    }
                     await replaceFunc(image, name, category, price, vendor)
                 })
                 catchCartEvent(name, price, category,image,   vendor)
@@ -705,7 +712,7 @@ let loadClickedProduct = async (id) => {
 
 //just ignore the errors
 let catchEvent = async () => {
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < id_array.length; i++) {
         document.getElementById(id_array[i]).addEventListener("click", async () => {
             loadClickedProduct(i)
         })

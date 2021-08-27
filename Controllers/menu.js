@@ -6,6 +6,7 @@ var shop_content = document.createElement('div');
 var shop_footer = document.createElement('div');
 var cartProduct = []
 var cartName = []
+var images = []
 
 let myFirebase = () => {
     // Your web app's Firebase configuration
@@ -70,6 +71,9 @@ let getMenu = async () => {
 
     document.getElementById("search-btn").addEventListener("click", async () => {
         await searchBar()
+    })
+    document.getElementById("support-btn").addEventListener("click", async () => {
+        await loadSupportPage()
     })
 
 }
@@ -170,6 +174,11 @@ let renderCartCard = async () => {
 }
 let catchCartEvent = async (name, price, category, image, vendor) => {
     document.getElementById("add-to-cart-btn").addEventListener("click", async () => {
+        let user = document.getElementById("userEmail").textContent
+        if (user.trim() == "bruh") {
+            alert("Please sign up/login")
+            return false
+        }
         let card = await getCartCard()
         if (cartName.includes(name)) {
             return false
@@ -263,7 +272,7 @@ let buyItems = async () => {
         }
         let checkboxes = document.getElementsByClassName("product-checkbox")
         let checked_arr = []
-        let qtt =[]
+        let qtt = []
         for (let i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i].checked == true) {
                 checked_arr.push(cartName[i])
@@ -311,10 +320,10 @@ let buyCPsP = async (arr, qtt) => {
                                 </div>
 
                                 <div class="desc" style="text-align: left; border: none;">
-                                    <h3> ` + cartProduct[i].name +`
+                                    <h3> ` + cartProduct[i].name + `
                                     </h3>
                                     <p class="small" style="width:600px;">
-                                        ` + cartProduct[i].category +`
+                                        ` + cartProduct[i].category + `
                                     </p>
 
                                     <h4 class="product-price">
@@ -329,7 +338,7 @@ let buyCPsP = async (arr, qtt) => {
                                         </div>
                                         <div>
                                             <input type="number" name="num" id="`+ cartProduct[i].name + "TC" + `" class="product-quantity" min="0"
-                                                value="`+  qtt[i] + `">
+                                                value="`+ qtt[i] + `">
                                         </div>
                                         <div class="punctuation-minus" style="margin-left: -120px;" id="`+ cartProduct[i].name + "2" + `">
                                             <span>-</span>
@@ -348,6 +357,7 @@ let buyCPsP = async (arr, qtt) => {
     await addOne();
     await minusOne();
 }
+
 //add product page
 let loadAddProductPage = async () => {
     let response = await fetch("../Views/addProduct.html")
@@ -359,6 +369,9 @@ let loadAddProductPage = async () => {
     renderWeightUnits()
     moreImage()
     showImage()
+    document.getElementById("sell-now-btn").addEventListener("click", async () => {
+        checkAddProduct()
+    })
 }
 let showImage = () => {
     myFirebase()
@@ -371,9 +384,10 @@ let showImage = () => {
                 storage.put(file).snapshot.ref.getDownloadURL().then((downloadURL) => {
                     document.getElementById("main-img").innerHTML = `
                         <div class="img-bg" id="main-img">
-                            <img src="${downloadURL}" height="100%" style="margin: auto;">
+                            <img src="${downloadURL}" height="100%" style="margin: auto;" id="big-image">
                         </div>
                     `
+                    console.log(downloadURL)
                 });
             }).catch((error) => {
                 console.log(error)
@@ -431,7 +445,7 @@ let addingAOption = () => {
 
 }
 let isEmpty = (value) => {
-    value = value.trim()
+    value = value
     if (value.length == 0 || value == "") {
         return true
     }
@@ -452,11 +466,57 @@ let moreImage = async () => {
         showSmallImage()
     })
 }
+let checkAddProduct = async () => {
+    let id_arr = ["warehouse-address", "addPD-phoneNum", "email", "productOrigin", "add-product-name", "add-product-shopname", "description", "nutrients-area", "inventory", "price1", "price2", "weight"]
+    let num_id = [isIncludeAlphabet(document.getElementById("price1").value), isIncludeAlphabet(document.getElementById("price1").value), isIncludeAlphabet(document.getElementById("weight").value), isIncludeAlphabet(document.getElementById("inventory").value)]
+    let phoneNum = await checkPhoneNumber("addPD-phoneNum")
+    var db = firebase.firestore();
+
+    console.log(num_id)
+
+    // if (document.getElementById("userEmail").style.display == "none") {
+    //     alert("Please sign up/ login")
+    //     return false
+    // }
+    // for (let i = 0; i < id_arr.length; i++) {
+    //     if (isNotFilled(document.getElementById(id_arr[i])) == 0) {
+    //         alert("Input cannot be empty")
+    //         return false
+    //     }
+    // }
+    // if (await checkPhoneNumber("addPD-phoneNum") != "valid"){
+    //     return false
+    // }
+    myFirebase()
+
+
+    db.collection("Users").get().then(async (results) => {
+        results.forEach(async (doc) => {
+            let email = doc._delegate._document.data.value.mapValue.fields.email.stringValue
+            if (doc._delegate._document.data.value.mapValue.fields.email.stringValue == document.getElementById("userEmail").textContent) {
+                db.collection("Users").doc(doc.id).update({
+                    email: email,
+                    images: [document.getElementById("big-image").src]
+                })
+            }
+        })
+    })
+    let name;
+    // let category =
+    //     let vendor =
+    //     let price =
+    //     let image =
+
+}
+let getURL = async (url) => {
+    console.log(url)
+}
 
 //product page
 let loadProductPage = async (card) => {
     // let response = await fetch("../Views/productPage.html");
     // let result = await response.text();
+
     shop_content.innerHTML = card;
 
 }
@@ -661,7 +721,7 @@ let hideCC = () => {
     })
 
 }
-let loadForm = () => {
+let loadForm = async () => {
     document.getElementById("private-home").addEventListener("click", () => {
         document.getElementById("form-address").innerHTML = ""
         document.getElementById("post-office-address").innerHTML = ""
@@ -690,24 +750,36 @@ let loadForm = () => {
             })
         }
     })
+    if (cartName.length == 0) {
+        await addOne();
+        await minusOne();
+    }
 }
 
 let buy = async () => {
     let btn = document.getElementById("buy-now-btn")
-    let err = []
     btn.addEventListener("click", async () => {
+        let err = []
+        let arr = await checkingRightSide()
         if (await checkingLeftSide() == false) {
             return false
         }
-        let arr = await checkingRightSide()
         if (arr.includes(undefined || arr.includes(0))) {
             alert("OOPS! Something's wrong")
+            return false
         }
         for (let i = 0; i < arr.length; i++) {
             if (arr[i] != 1) {
                 err.push(1)
             }
         }
+        let date = document.getElementById("expiration-date").value
+        if (date == "" || data == " " || date.length == 0) {
+            alert("OOPS! Something's wrong")
+            return false
+        }
+        console.log(date)
+        console.log(arr)
         if (err.length == 0) {
             loadHome()
             alert("SUCCESSFUL PURCHASE")
@@ -943,7 +1015,7 @@ let dateCompare = () => {
 let checkingLeftSide = async () => {
     let first_name = await checkFirstName()
     let last_name = await checkLastName()
-    let phone_number = await checkPhoneNumber()
+    let phone_number = await checkPhoneNumber("buy-phoneNum")
     let checkArray = () => {
         return "valid"
     }
@@ -984,8 +1056,8 @@ let checkLastName = async () => {
         return false
     }
 }
-let checkPhoneNumber = async () => {
-    let phone = document.getElementById("buy-phoneNum").value
+let checkPhoneNumber = async (id) => {
+    let phone = document.getElementById(id).value
     phone = phone.trim()
     let points = 0
     points += isNotFilled(phone)
@@ -1038,6 +1110,7 @@ let isIncludeAlphabet = (input) => {
             err.push(invalid[i])
         }
     }
+    console.log(err)
     if (err.length != 0) {
         return 0
     } else if (err.length == 0) {
@@ -1192,14 +1265,14 @@ let replaceFunc = async (img, title, price, vendor, category) => {
                                         <p>${vendor} </p>
                                     </div>
                                     <div class="quantity">
-                                        <div class="punctuation-plus">
+                                        <div class="punctuation-plus" id="${title}">
                                             <span>+</span>
                                         </div>
                                         <div>
-                                            <input type="number" name="num" id="" class="product-quantity" min="0"
+                                            <input type="number" name="num"  id="${title + "TC"}" class="product-quantity" min="0"
                                                 value="1">
                                         </div>
-                                        <div class="punctuation-minus" style="margin-left: -120px;">
+                                        <div class="punctuation-minus" style="margin-left: -120px;"  id="${title + "2"}">
                                             <span>-</span>
                                         </div>
                                     </div>
@@ -1218,7 +1291,7 @@ let replaceFunc = async (img, title, price, vendor, category) => {
             </form>
         </div>
         <div style="display:flex; width: 600px;">
-            <div class="info-wrap p-md-5 " style="padding: 4px; background-color: #007bff; ">
+            <div class="info-wrap p-md-5 " style="padding: 50px; background-color: #007bff; ">
                 <h3>Purchase Page</h3>
                 <div class="dbox" style="margin-top:40px; display:flex;">
                     <div class="icon center">
@@ -1258,10 +1331,35 @@ let replaceFunc = async (img, title, price, vendor, category) => {
     </div>
 </div>
                     `
-    await showCC()
+    await loadForm()
+    showCC()
     hideCC()
-    loadForm()
+    
     buy()
+
+    document.getElementById(title).addEventListener("click", () => {
+        let quantity = document.getElementById(title + "TC")
+        if (quantity.value.includes("-")) {
+            quantity.value = 1
+            return false
+        }
+        quantity.value = Number(quantity.value) + 1
+
+
+
+    })
+
+    document.getElementById(title + "2").addEventListener("click", () => {
+        let quantity = document.getElementById(title + "TC")
+        if (quantity.value == 0 || quantity.value == "0") {
+            return false
+        }
+        if (quantity.value.includes("-")) {
+            quantity.value = 1
+            return false
+        }
+        quantity.value = Number(quantity.value) - 1
+    })
 }
 
 //////////////////////
@@ -1336,6 +1434,62 @@ let searchPrice = async () => {
     })
 }
 
+///SUPPORT
+let loadSupportList1 = async function () {
+    let response = await fetch("./Views/support_list1.html");
+    let result = await response.text()
+    shop_content.innerHTML = result;
+}
+
+let loadSupportList2 = async function () {
+    let response = await fetch("./Views/support_list2.html");
+    let result = await response.text()
+    shop_content.innerHTML = result;
+}
+
+let loadSupportList3 = async function () {
+    let response = await fetch("./Views/support_list3.html");
+    let result = await response.text()
+    shop_content.innerHTML = result;
+}
+
+let loadSupportList4 = async function () {
+    let response = await fetch("./Views/support_list4.html");
+    let result = await response.text()
+    shop_content.innerHTML = result;
+}
+
+let loadSupportList5 = async function () {
+    let response = await fetch("./Views/support_list5.html");
+    let result = await response.text()
+    shop_content.innerHTML = result;
+}
+
+let loadSupportPage = async function () {
+    let response = await fetch("./Views/support.html");
+    let result = await response.text()
+    shop_content.innerHTML = result;
+
+    document.getElementById("support_list1").addEventListener('click', async () => {
+        loadSupportList1()
+    })
+
+    document.getElementById("support_list2").addEventListener('click', async () => {
+        loadSupportList2()
+    })
+
+    document.getElementById("support_list3").addEventListener('click', async () => {
+        loadSupportList3()
+    })
+
+    document.getElementById("support_list4").addEventListener('click', async () => {
+        loadSupportList4()
+    })
+
+    document.getElementById("support_list5").addEventListener('click', async () => {
+        loadSupportList5()
+    })
+}
 
 
 export { initHTML, getMenu, catchProfileEvent, loadProfile, loadCard, renderCard, getProductPage, loadProductPage, myFirebase, clickProduct, loadHome, getPurchasePage, replaceFunc, catchCartEvent, loadCartPage }

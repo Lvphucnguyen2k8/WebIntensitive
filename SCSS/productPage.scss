@@ -202,9 +202,9 @@ $secondary: #0055AA;
 
 //description
 .moreInfo-content, .moreInfo-description {
-    padding: 10px 20px 10px 20px;
     font-size: 20px;
     background-color:white;
+    padding: 20px;
 }
 a{
     color: $secondary;
@@ -261,7 +261,7 @@ ul, li{
 }
 .img-row{
     display: flex;
-    justify-content:center;
     flex-grow: 1;
     box-sizing: border-box;
+    width: fit-content;
 }
