@@ -12,13 +12,14 @@ let myFirebase = () => {
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     var firebaseConfig = {
-        apiKey: "AIzaSyDe3p8_DRJT-PZ1R9FH9hNvso9EU6gedno",
-        authDomain: "selling-fruit.firebaseapp.com",
-        projectId: "selling-fruit",
-        storageBucket: "selling-fruit.appspot.com",
-        messagingSenderId: "990490158508",
-        appId: "1:990490158508:web:de1be9be2fade2e6414609",
-        measurementId: "G-RBG9QM9M8B"
+        apiKey: "AIzaSyB9BsaZzpeVTepnhdV6huHEnDcqwbg6X3s",
+        authDomain: "fruit-shop-87c80.firebaseapp.com",
+        databaseURL: "https://fruit-shop-87c80-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "fruit-shop-87c80",
+        storageBucket: "fruit-shop-87c80.appspot.com",
+        messagingSenderId: "460096943780",
+        appId: "1:460096943780:web:bee76f7e48a6be826c1831",
+        measurementId: "G-KGJEFR5EHC"
     };
 
     // Initialize Firebase
@@ -774,7 +775,7 @@ let buy = async () => {
             }
         }
         let date = document.getElementById("expiration-date").value
-        if (date == "" || data == " " || date.length == 0) {
+        if (date == "" || date == " " || date.length == 0) {
             alert("OOPS! Something's wrong")
             return false
         }
