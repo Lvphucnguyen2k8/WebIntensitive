@@ -15,6 +15,8 @@ let installFirebase = () => {
         firebase.initializeApp(firebaseConfig2);
         firebase.analytics();
     }
+
+
 }
 
 let signUp = function () {
@@ -31,6 +33,17 @@ let signUp = function () {
             showUser()
             document.getElementById("userEmail").textContent = userCredential.user.bc.email
             catchProfileEvent(userCredential)
+            var db = firebase.firestore();
+            db.collection("Users").add({
+                email: userCredential.user.bc.email,
+                //not avatar
+                images: [],
+
+            }).then((document) => {
+                console.log(document.id)
+            }).catch((error) => {
+                console.log(error.message)
+            })
         })
         .catch((error) => {
             //var errorCode = error.code;
@@ -38,6 +51,7 @@ let signUp = function () {
             // ..
             alert(error.message)
         })
+    
 }
 
 let signIn = function () {
@@ -84,16 +98,16 @@ let showUser = async () => {
 }
 
 
-// let logOut = function () {
-//     installFirebase()
+let logOut = function () {
+    installFirebase()
 
-//     firebase.auth().signOut()
-//         .then((success) => {
-//             alert("Success")
-//         })
-//         .catch((error) => {
-//             alert(error.message)
-//         })
-// }
+    firebase.auth().signOut()
+        .then((success) => {
+            alert("Success")
+        })
+        .catch((error) => {
+            alert(error.message)
+        })
+}
 
 export { signUp, signIn, resetPassword }

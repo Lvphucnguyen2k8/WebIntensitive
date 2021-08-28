@@ -3,174 +3,168 @@
     https://www.websitebuilderexpert.com/designing-websites/ecommerce-product-page-design-part-1/ -->
     <link rel="stylesheet" href="../SCSS/productPage.css" scoped>
     <div class="product-container">
-        <div class="img-and-info">
-            <div class="img">
-                <div class="product-image">
-                    <div id="PRD-main-img">
-                        <!-- img here -->
-                        <img src="{{img1}}" alt="{{product-image}}" style="width:100%;"
-                            class="product-main-img">
+        <div>
+            <div class="img-and-info" style="display: flex; flex-direction: row;">
+                <div class="img" style="float:left;">
+                    <div class="product-image">
+                        <div id="PRD-main-img">
+                            <!-- img here -->
+                            <img src="{{img1}}" alt="{{product-image}}" style="width:100%;" class="product-main-img">
+                        </div>
+                    </div>
+            
+                    <!-- more images -->
+                    <div class="img-row">
+                        <div class="img-small img-1" id="img-1">
+                            <img src="{{img1.5}}" alt="" width="100" height="100" onmousemove="changeImage(0)" class="vice-img">
+                        </div>
+                        <div class="img-small img-2" id="img-2">
+                            <img src="{{img2}}" class="vice-img" onmousemove="changeImage(1)" alt="" width="100" height="100">
+            
+                        </div>
+                        <div class="img-small img-3" id="img-3">
+                            <img src="{{img3}}" alt="" height="100" width="100" class="vice-img" onmousemove="changeImage(2)">
+            
+                        </div>
+                        <div class="img-small img-4" id="img-4">
+                            <img src="{{img4}}" alt="" height="100" width="100" class="vice-img" onmousemove="changeImage(3)">
+            
+                        </div>
+                        <div class="img-small img-5" id="img-5">
+                            <img src="{{img5}}" alt="" height="100" width="100" class="vice-img" onmousemove="changeImage(4)">
+            
+                        </div>
                     </div>
                 </div>
-
-                <!-- more images -->
-                <div class="img-row">
-                    <div class="img-small img-1" id="img-1">
-                        <img src="{{img1.5}}" alt="" width="100" height="100"
-                            onmousemove="changeImage(0)" class="vice-img">
+            
+                <div class="product-info" style="float: right;">
+                    <!-- add to favorite heart -->
+                    <div class="heart add-to-fav" id="add-to-favorite-heart">
+                        <i class="fas fa-heart"></i>
                     </div>
-                    <div class="img-small img-2" id="img-2">
-                        <img src="{{img2}}"
-                            class="vice-img" onmousemove="changeImage(1)" alt="" width="100" height="100">
-
+            
+                    <!-- product title -->
+                    <div class="title">
+                        <h1 class="product-title" style="color: black;">
+                            {{product-title}}
+                        </h1>
                     </div>
-                    <div class="img-small img-3" id="img-3">
-                        <img src="{{img3}}"
-                            alt="" height="100" width="100" class="vice-img" onmousemove="changeImage(2)">
-
-                    </div>
-                    <div class="img-small img-4" id="img-4">
-                        <img src="{{img4}}"
-                            alt="" height="100" width="100" class="vice-img" onmousemove="changeImage(3)">
-
-                    </div>
-                    <div class="img-small img-5" id="img-5">
-                        <img src="{{img5}}"
-                            alt="" height="100" width="100" class="vice-img" onmousemove="changeImage(4)">
-
+                    <div>
+                        <div class="assessment">
+                            <!-- rating stars -->
+                            <div class="rating-star">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <!-- review -->
+                            <div class="review">
+                                <span class="review-number">{{ratings}}</span>
+                                <span style="color: gray;"> Ratings</span>
+                            </div>
+                            <!-- sold -->
+                            <div class="sold" style="border: none;">
+                                <span class="sold-number">{{sold}}</span>
+                                <span style="color: gray;">Sold</span>
+                            </div>
+                        </div>
+                        <div class="priceDiv">
+                            <!-- price -->
+                            <div>
+                                <p class="price" id="price">
+                                    {{price}}<sup><small>$</small></sup>
+                                </p>
+                            </div>
+            
+                            <!-- old price in delete font style (if yes) -->
+                            <!-- <div>
+                                        <p class="oldPrice">
+                                            <del>{{old-price}}<small><sup>$</sup></small> </del>
+                                        </p>
+                                    </div> -->
+            
+                            <div class="buttons">
+                                <!-- add to cart btn -->
+                                <div class="add-to-cart-btn set " id="add-to-cart-btn">
+                                    <div class="add-to-cart-wrapper wrapper set">
+                                        <div class="icon set">
+                                            <div class="add-to-cart-tt tooltip set">Add to cart</div>
+                                            <span><i class="fas fa-cart-plus" style="font-size:25px"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <!-- buy now btn -->
+                                <div class="buy-now-btn" style="margin-left: 20px;" id="buy-now-btn">
+                                    <div class="buy-now-wrapper wrapper set" style="background-color: #ee4d2d;">
+                                        <div class="icon set">
+                                            <div class="tooltip set" style="background-color: #ee4d2d;">Buy Now !!</div>
+                                            <span><i class="fas fa-cash-register" style="color: white; font-size:25px;"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div class="nutrients">
+                            <div class="nutrients-title">
+                                <h2>Nutrients</h2>
+                            </div>
+                            <div class="nutrients-content">
+                                <!-- remember to add a word limit -->
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates inventore optio ad illo fugiat
+                                ipsum, magnam doloribus dolorum unde, ratione, ducimus velit maiores dolor molestiae aspernatur
+                                aperiam quia cupiditate accusantium?
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="product-info">
-                <!-- add to favorite heart -->
-                <div class="heart add-to-fav" id="add-to-favorite-heart">
-                    <i class="fas fa-heart"></i>
-                </div>
-
-                <!-- product title -->
-                <div class="title">
-                    <h1 class="product-title" style="color: black;">
-                        {{product-title}}
-                    </h1>
-                </div>
+            
+            <div class="moreInfo-description">
                 <div>
-                    <div class="assessment">
-                        <!-- rating stars -->
-                        <div class="rating-star">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <!-- review -->
-                        <div class="review">
-                            <span class="review-number">{{ratings}}</span>
-                            <span style="color: gray;"> Ratings</span>
-                        </div>
-                        <!-- sold -->
-                        <div class="sold" style="border: none;">
-                            <span class="sold-number">{{sold}}</span>
-                            <span style="color: gray;">Sold</span>
-                        </div>
+                    <div class="MF">
+                        More information
                     </div>
-                    <div class="priceDiv">
-                        <!-- price -->
-                        <div>
-                            <p class="price" id="price">
-                                {{price}}<sup><small>$</small></sup>
-                            </p>
-                        </div>
-
-                        <!-- old price in delete font style (if yes) -->
-                        <!-- <div>
-                            <p class="oldPrice">
-                                <del>{{old-price}}<small><sup>$</sup></small> </del>
-                            </p>
-                        </div> -->
-
-                        <div class="buttons">
-                            <!-- add to cart btn -->
-                            <div class="add-to-cart-btn set ">
-                                <div class="add-to-cart-wrapper wrapper set">
-                                    <div class="icon set">
-                                        <div class="add-to-cart-tt tooltip set">Add to cart</div>
-                                        <span><i class="fas fa-cart-plus" style="font-size:25px"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- buy now btn -->
-                            <div class="buy-now-btn" style="margin-left: 20px;" id="buy-now-btn">
-                                <div class="buy-now-wrapper wrapper set" style="background-color: #ee4d2d;">
-                                    <div class="icon set">
-                                        <div class="tooltip set" style="background-color: #ee4d2d;">Buy Now !!</div>
-                                        <span><i class="fas fa-cash-register" style="color: white; font-size:25px;"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="moreInfo-content">
+                        <!-- example -->
+                        <ul>
+                            <li>
+                                Sold by: <a href="">{{shop-name}}</a>
+                            </li>
+                            <li>
+                                Origin: Earth
+                            </li>
+                            <li>
+                                In stock: {{no-data}}
+                            </li>
+                            <li>
+                                Category: {{category}}
+                            </li>
+                        </ul>
                     </div>
-
-                    <div class="nutrients">
-                        <div class="nutrients-title">
-                            <h2>Nutrients</h2>
-                        </div>
-                        <div class="nutrients-content">
-                            <!-- remember to add a word limit -->
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates inventore optio ad illo fugiat ipsum, magnam doloribus dolorum unde, ratione, ducimus velit maiores dolor molestiae aspernatur aperiam quia cupiditate accusantium? 
-                        </div>
+                </div>
+                <div class="description">
+                    <div class="MF">
+                        Description
+                    </div>
+                    <div class="description-content moreInfo-content">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat rerum deleniti impedit, rem beatae animi
+                        asperiores, temporibus eum sed odit, voluptas suscipit et consequuntur magnam eaque a repellendus ab ipsa.
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="moreInfo-description">
-            <div>
-                <div class="MF">
-                    More information
-                </div>
-                <div class="moreInfo-content">
-                    <!-- example -->
-                    <ul>
-                        <li>
-                            Sold by: <a href="">{{shop-name}}</a>
-                        </li>
-                        <li>
-                            Origin: Earth
-                        </li>
-                        <li>
-                            In stock: {{no-data}}
-                        </li>
-                        <li>
-                            Category: {{category}}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="description">
-                <div class="MF">
-                    Description
-                </div>
-                <div class="description-content moreInfo-content">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat rerum deleniti impedit, rem beatae animi asperiores, temporibus eum sed odit, voluptas suscipit et consequuntur magnam eaque a repellendus ab ipsa.
-                </div>
-            </div>
-        </div>
-
-        <div class="comment-section">
+        <!-- <div class="comment-section">
             <div class="comment-title MF" style="border-left:35px solid white; border-right: 35px solid white;">
                 Comments
             </div>
             <div class="comment-content" id="comment-content">
                                  <div class="comment-content" style="display: flex;">
-                                    <!-- open code if you want to see the interface -->
-                                    <!-- THIS IS A SAMPLE-->
-                                    <!-- <div class="media g-mb-30 media-comment "> -->
-                                
-                                    <!-- avatar here -->
-                                   <!-- <div>
+                                    <div>
                                         <img width="50" height="50" style="border-radius:100%; margin: 20px 20px 0px 0px;"
                                             src="https://i5.walmartimages.ca/images/Enlarge/580/6_r/875806_R.jpg" alt="{{avatar}}">
                                     </div>
@@ -202,10 +196,10 @@
                                         0
                                 
                                     </div>
-                                </div> -->
+                                </div> 
 
             </div>
-        </div>
+        </div> -->
 
     </div>
 </div>

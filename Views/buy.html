@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="../SCSS/addProductPage.css" scoped>
     <link rel="stylesheet" href="../SCSS/buy.css">
     <div class="container">
-        <div class="contact-wrap w-100 p-md-5 p-4">
+        <div class="contact-wrap w-100 p-md-5 p-4" style="padding: 50px;">
             <div id="form-message-warning" class="mb-4">
                 <h2 style="color: black;">Choose a payment method</h2>
             </div>
@@ -88,67 +88,19 @@
                     <div id="form-message-warning" class="mb-4">
                         <h2 style="color: black;">Quantity</h2>
                     </div>
-                    <div>
-                        <div class="content" style="display:flex; flex-direction: row;" id="user-cart">
-                            <!-- adding product here -->
-                            <!-- Open the code if you want to see the page interface -->
-                            <!-- THIS IS AN EXAMPLE -->
-                            <div style="display:flex; align-items: flex-start;">
-                                <div style="display:flex; align-items: center; border: none;">
-                                    <form action="" onsubmit="return false">
-                                        <label class="toggle">
-                                            <input class="toggle__input checkbox" type="checkbox" style="opacity: 0;">
-                                            <span class="toggle__label">
-                                        </label>
-                                    </form>
-                                    <div class="cart-product-img" style="padding: 0px;">
-
-                                        <img src="{{img}}" alt="" width="80" height="80" style="margin: 0; padding: 0;">
-                                    </div>
-
-                                </div>
-
-                                <div class="desc" style="text-align: left; border: none;">
-                                    <h3> {{title}}
-                                    </h3>
-                                    <p class="small" style="width:600px;">
-                                        {{category}}
-                                    </p>
-
-                                    <h4 class="product-price">
-                                        {{price}}<sup>$</sup>
-                                    </h4>
-                                    <div style="display: flex;">
-                                        <p>{{shop-name}} </p>
-                                    </div>
-                                    <div class="quantity">
-                                        <div class="punctuation-plus">
-                                            <span>+</span>
-                                        </div>
-                                        <div>
-                                            <input type="number" name="num" id="" class="product-quantity" min="0"
-                                                value="1">
-                                        </div>
-                                        <div class="punctuation-minus" style="margin-left: -120px;">
-                                            <span>-</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                    <div id="items-list">
+                      
                     </div>
                     <div>
                         <div class="form-group">
-                            <div class="btn btn-primary" id="buy-now-btn" style="margin-top: 20px;">Buy
-                                now</div>
+                            <div class="btn btn-primary" id="buy-now-btn" style="margin-top: 20px;"> Buy now </div>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
         <div style="display:flex; width: 600px;">
-            <div class="info-wrap p-md-5 " style="padding: 4px; background-color: #007bff; ">
+            <div class="info-wrap " style="padding: 50px; background-color: #007bff; ">
                 <h3>Purchase Page</h3>
                 <div class="dbox" style="margin-top:40px; display:flex;">
                     <div class="icon center">

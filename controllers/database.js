@@ -1,5 +1,5 @@
 import { Product } from "../Models/product.js"
-import { renderCard, loadCard, getProductPage, loadProductPage, myFirebase, clickProduct, loadHome, getPurchasePage, replaceFunc } from "../Controllers/menu.js"
+import { renderCard, loadCard, getProductPage, loadProductPage, myFirebase, clickProduct, loadHome, getPurchasePage, replaceFunc, catchCartEvent } from "../Controllers/menu.js"
 
 const currencies = [
     "AED",
@@ -225,7 +225,7 @@ const id_array = [
     "x3RvJVxidsWD3coOs66Q",
     "xXMR2L19jtpEWopTX16G",
     "xzlD0t1j4mnATUsnv32r",
-    "yEvj0c8jOfrdfamtLvFJ"
+    "yEvj0c8jOfrdfamtLvFJ",
 ]
 const creditCards = [
     {
@@ -661,6 +661,7 @@ let initProduct = async (data) => {
 }
 
 let loadClickedProduct = async (id) => {
+
     var db = firebase.firestore();
 
     db.collection("Products").get().then(async (results) => {
@@ -687,10 +688,17 @@ let loadClickedProduct = async (id) => {
                     .replace("{{shop-name}}", vendor)
                     .replace("{{category}}", category)
 
+                
                 await loadProductPage(html)
                 document.getElementById("buy-now-btn").addEventListener("click", async () => {
+                    let user = document.getElementById("userEmail").textContent
+                    if (user.trim() == "bruh") {
+                        alert("Please sign up/login")
+                        return false
+                    }
                     await replaceFunc(image, name, category, price, vendor)
                 })
+                catchCartEvent(name, price, category,image,   vendor)
             }
 
         })
@@ -704,7 +712,7 @@ let loadClickedProduct = async (id) => {
 
 //just ignore the errors
 let catchEvent = async () => {
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < id_array.length; i++) {
         document.getElementById(id_array[i]).addEventListener("click", async () => {
             loadClickedProduct(i)
         })
