@@ -1,96 +1,6 @@
 <body>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    .main-wrapper {
-        height: 100vh;
-        margin-top: 125px;
-
-    }
-
-    .container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-    }
-
-    .container_content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
-
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-        background-image: url("https://image.freepik.com/free-vector/ripe-pomegranate-sliced-fruit-background-style-technical-drawings_122058-599.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    .box {
-        width: 500px;
-        height: auto;
-        text-align: center;
-        background: #34485e;
-
-        padding: 20px;
-    }
-
-    .box h1 {
-        color: white;
-        text-transform: uppercase;
-        font-weight: 500;
-    }
-
-    .box input[type="email"],
-    .box input[type="password"] {
-        border: 0;
-        background: none;
-        display: block;
-        margin: 20px auto;
-        text-align: center;
-        border: 2px solid #3498db;
-        padding: 14px 10px;
-        width: 200px;
-        outline: none;
-        color: white;
-        border-radius: 24px;
-        transition: 0.25s;
-    }
-
-    .box input[type="email"]:focus,
-    .box input[type="password"]:focus {
-        width: 280px;
-        border-color: #2ecc71;
-    }
-
-    .box button[type="submit"] {
-        border: 0;
-        background: none;
-        display: block;
-        margin: 20px auto;
-        text-align: center;
-        border: 2px solid #2ecc71;
-        padding: 14px 40px;
-        outline: none;
-        color: white;
-        border-radius: 24px;
-        transition: 0.25s;
-        cursor: pointer;
-    }
-
-    .box button[type="submit"]:hover {
-        background: #2ecc71;
-    }
 </style>
+<link rel="stylesheet" href="../SCSS/login_signup_forgot_profile.css">
     <div class="main-wrapper" style="width: 100%; height: 100%; margin-bottom: 100px;">
         <div class="container">
             <div class="container_content">
@@ -103,6 +13,9 @@
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" id="loginPassword" placeholder="Password">
+                        </div>
+                                                <div>
+                            <p id="alert"></p>
                         </div>
                         <button type="submit" class="btn btn-primary" id="btnSignup">Sign Up</button>
                     </form>

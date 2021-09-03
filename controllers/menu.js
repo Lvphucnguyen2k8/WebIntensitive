@@ -1,5 +1,5 @@
 import { renderCurrencies, renderWeightUnits, initProducts, loadClickedProduct, renderCreditCards, loadCountriesList, loadAddressForm, loadPostOfficeForm, searching, searchingVendors, searchingCategory, searchingPrice } from "./database.js";
-import { resetPassword, signIn, signUp } from "./authen.js"
+import { resetPassword, logOut, signIn, signUp } from "./authen.js"
 
 var shop_menu = document.createElement('div');
 var shop_content = document.createElement('div');
@@ -603,7 +603,7 @@ let catchForgotPassword = async () => {
 }
 
 let loadForgotPassword = async () => {
-    let response = await fetch("../Views/forgotpassword.html")
+    let response = await fetch("../Views/forgot_resetpassword.html")
     let result = await response.text()
     shop_content.innerHTML = result;
 
@@ -624,6 +624,9 @@ let loadProfile = async function () {
     document.getElementById("reset-password-btn").addEventListener('click', async () => {
         loadForgotPassword()
     })
+    document.getElementById("log-out-btn").addEventListener('click', async () => {
+        catchLogOutEvent()
+    })
 }
 
 let catchProfileEvent = (a) => {
@@ -632,19 +635,12 @@ let catchProfileEvent = (a) => {
         document.getElementById("profileEmail").textContent = "Email: " + a.user.bc.email
     })
 }
-// let loadLogOut = async () => {
-//     let response = await fetch("../views/profile.html")
-//     let result = await response.text()
-//     shop_content.innerHTML = result;
 
-//     catchLogOutEvent()
-// }
-
-// let catchLogOutEvent = async () => {
-//     document.getElementById("log-out-btn").addEventListener('click', async () => {
-//         logOut()
-//     })
-// }
+let catchLogOutEvent = async () => {
+    document.getElementById("log-out-btn").addEventListener('click', async () => {
+        logOut()
+    })
+}
 
 //home
 let loadCard = async () => {

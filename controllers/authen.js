@@ -61,12 +61,11 @@ let signIn = function () {
 
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            alert("Success");
+            alert("Success")
             console.log(firebase.auth().currentUser);
             showUser()
             document.getElementById("userEmail").textContent = userCredential.user.bc.email
             catchProfileEvent(userCredential)
-            
         })
         .catch((error) => {
             alert(error.message)
@@ -103,11 +102,11 @@ let logOut = function () {
 
     firebase.auth().signOut()
         .then((success) => {
-            alert("Success")
+            document.getElementById("alert").innerText = "Success"
         })
         .catch((error) => {
             alert(error.message)
         })
 }
 
-export { signUp, signIn, resetPassword }
+export { signUp, signIn, logOut, resetPassword }

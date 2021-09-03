@@ -31,6 +31,10 @@ h4.footer-title {
   line-height: 22.5px;
 }
 
+.img {
+  padding-left: 50px;
+}
+
 .column {
   width: 250px;
   word-wrap: break-word;
