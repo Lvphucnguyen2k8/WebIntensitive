@@ -1,12 +1,12 @@
-import { renderCurrencies, renderWeightUnits, initProducts, loadClickedProduct, renderCreditCards, loadCountriesList, loadAddressForm, loadPostOfficeForm, searching, searchingVendors, searchingCategory, searchingPrice } from "./database.js";
-import { resetPassword, signIn, signUp } from "./authen.js"
+import { renderWeightUnits, initProducts, loadClickedProduct, renderCreditCards, loadCountriesList, loadAddressForm, loadPostOfficeForm, searching, searchingVendors, searchingCategory, searchingPrice, addID } from "./database.js";
+import { resetPassword, signIn, signUp, logOut } from "./authen.js"
 
 var shop_menu = document.createElement('div');
 var shop_content = document.createElement('div');
 var shop_footer = document.createElement('div');
 var cartProduct = []
 var cartName = []
-var images = []
+let images;
 
 let myFirebase = () => {
     // Your web app's Firebase configuration
@@ -85,8 +85,13 @@ let loadMenu = async () => {
     shop_menu.innerHTML = result
 
     document.getElementById("add-product-btn").addEventListener("click", async () => {
-        await loadAddProductPage()
+        if (document.getElementById("userEmail").textContent == "linhoccho4869@gmail.com" || document.getElementById("userEmail").textContent == "Lvphucnguyen53lnh@gmail.com" || document.getElementById("userEmail").textContent == "Lvphucnguyen2k8@gmail.com") {
+            await loadAddProductPage()
+        } else {
+            alert("You are not authorized to add products")
+        }
     })
+
 }
 
 //home
@@ -366,7 +371,6 @@ let loadAddProductPage = async () => {
     shop_content.innerHTML = result
 
     moreOption()
-    renderCurrencies()
     renderWeightUnits()
     moreImage()
     showImage()
@@ -388,7 +392,7 @@ let showImage = () => {
                             <img src="${downloadURL}" height="100%" style="margin: auto;" id="big-image">
                         </div>
                     `
-                    console.log(downloadURL)
+                    images = downloadURL
                 });
             }).catch((error) => {
                 console.log(error)
@@ -408,7 +412,7 @@ let showSmallImage = () => {
                     console.log("success")
                     storage.put(file).snapshot.ref.getDownloadURL().then((downloadURL) => {
                         document.getElementsByClassName("more-img")[i].innerHTML = `
-                            <img src="${downloadURL}"  style="margin: auto; max-width: 125px; max-height: 75px;" >
+                            <img src="${downloadURL}"  style="margin: auto; max-width: 125px; max-height: 75px;" class="pd-images">
                         `
                     });
                 }).catch((error) => {
@@ -468,45 +472,55 @@ let moreImage = async () => {
     })
 }
 let checkAddProduct = async () => {
-    let id_arr = ["warehouse-address", "addPD-phoneNum", "email", "productOrigin", "add-product-name", "add-product-shopname", "description", "nutrients-area", "inventory", "price1", "price2", "weight"]
-    let num_id = [isIncludeAlphabet(document.getElementById("price1").value), isIncludeAlphabet(document.getElementById("price1").value), isIncludeAlphabet(document.getElementById("weight").value), isIncludeAlphabet(document.getElementById("inventory").value)]
-    let phoneNum = await checkPhoneNumber("addPD-phoneNum")
+    
+    myFirebase()
     var db = firebase.firestore();
 
-    console.log(num_id)
+    let name = document.getElementById('add-product-name').value
+    let vendor = document.getElementById("add-product-shopname").value
+    let price = Math.floor(Math.random() * (document.getElementById('price2').value - document.getElementById('price1').value) + document.getElementById('price1').value)
+    let url = images
+    let category = document.getElementById("fruitGroup").value
+    let desc = document.getElementById("description").value
+    let image = () => {
+        let arr = []
+        let im = document.getElementsByClassName('pd-images')
+        for (let i = 0; i < im.length; i++) {
+            arr.push(im[i].src)
 
-    // if (document.getElementById("userEmail").style.display == "none") {
-    //     alert("Please sign up/ login")
-    //     return false
-    // }
-    // for (let i = 0; i < id_arr.length; i++) {
-    //     if (isNotFilled(document.getElementById(id_arr[i])) == 0) {
-    //         alert("Input cannot be empty")
-    //         return false
-    //     }
-    // }
-    // if (await checkPhoneNumber("addPD-phoneNum") != "valid"){
-    //     return false
-    // }
-    myFirebase()
+        }
+        return arr
+    }
+    console.log(JSON.stringify())
 
 
-    db.collection("Users").get().then(async (results) => {
-        results.forEach(async (doc) => {
-            let email = doc._delegate._document.data.value.mapValue.fields.email.stringValue
-            if (doc._delegate._document.data.value.mapValue.fields.email.stringValue == document.getElementById("userEmail").textContent) {
-                db.collection("Users").doc(doc.id).update({
-                    email: email,
-                    images: [document.getElementById("big-image").src]
-                })
-            }
-        })
+    db.collection("Users Products").add({
+        name: name,
+        category: category,
+        image: JSON.stringify(image()),
+        big_image: url,
+        vendor: vendor,
+        price: price / 100,
+        desc: desc,
+        id: Number(JSON.parse(localStorage.getItem("IDS")).length) + 1,
+        phone_number: document.getElementById("addPD-phoneNum").value,
+        weight: document.getElementById("weight").value + document.getElementById("units").value,
+        inventory: document.getElementById("inventory").value
+    }).then((document) => {
+        let array = JSON.parse(localStorage.getItem("IDS"))
+        array.push(document.id)
+        let num = array.length
+        localStorage.setItem("IDS", JSON.stringify(array))
+
+
+        console.log(document.id)
+    }).catch((error) => {
+        console.log(error.message)
     })
-    let name;
-    // let category =
-    //     let vendor =
-    //     let price =
-    //     let image =
+    let box = await getAlertBox();
+    box = box.replace("{{message}}", "Added Successfully!")
+    loadAlertBox(box)
+
 
 }
 let getURL = async (url) => {
@@ -575,7 +589,6 @@ let loadSignUp = async () => {
 let Registering = async () => {
     document.getElementById("btnSignup").addEventListener("click", async () => {
         signUp()
-        loadHome()
     })
 }
 
@@ -592,7 +605,6 @@ let loadLogin = async () => {
 let Login = async () => {
     document.getElementById("btnLogin").addEventListener("click", async () => {
         signIn()
-        loadHome()
     })
 }
 
@@ -624,6 +636,9 @@ let loadProfile = async function () {
     document.getElementById("reset-password-btn").addEventListener('click', async () => {
         loadForgotPassword()
     })
+    document.getElementById("log-out-btn").addEventListener('click', async () => {
+        catchLogOutEvent()
+    })
 }
 
 let catchProfileEvent = (a) => {
@@ -640,11 +655,11 @@ let catchProfileEvent = (a) => {
 //     catchLogOutEvent()
 // }
 
-// let catchLogOutEvent = async () => {
-//     document.getElementById("log-out-btn").addEventListener('click', async () => {
-//         logOut()
-//     })
-// }
+let catchLogOutEvent = async () => {
+    document.getElementById("log-out-btn").addEventListener('click', async () => {
+        logOut()
+    })
+}
 
 //home
 let loadCard = async () => {
@@ -760,302 +775,181 @@ let loadForm = async () => {
 let buy = async () => {
     let btn = document.getElementById("buy-now-btn")
     btn.addEventListener("click", async () => {
-        let err = []
-        let arr = await checkingRightSide()
-        if (await checkingLeftSide() == false) {
-            return false
-        }
-        if (arr.includes(undefined || arr.includes(0))) {
-            alert("OOPS! Something's wrong")
-            return false
-        }
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i] != 1) {
-                err.push(1)
+        if (await checkingLeftSide() == true) {
+            if (await checkPayment() == true) {
+                if (await checkAddress() == true) {
+                    if (await checkQuantity() == true) {
+                        let box = await getAlertBox();
+                        box = box.replace("{{message}}", "Purchase Successfully!")
+                        loadAlertBox(box)
+                    }
+                }
             }
         }
-        let date = document.getElementById("expiration-date").value
-        if (date == "" || date == " " || date.length == 0) {
-            alert("OOPS! Something's wrong")
+
+
+        // if (arr.includes(undefined) || arr.includes(0) || arr.includes(false)) {
+        //     alert("OOPS! Something's wrong")
+        //     return false
+        // }
+
+        // for (let i = 0; i < arr.length; i++) {
+        //     if (arr[i] != 1) {
+        //         err.push(1)
+        //     }
+        // }
+        // console.log(arr)
+        // if (err.length == 0) {
+        //     loadHome()
+        //     let box = await getAlertBox();
+        //     box = box.replace("{{message}}", "Purchase Successfully")
+        //     loadAlertBox(box)
+
+        // }
+    })
+}
+let checkQuantity = async () => {
+    let qtts = document.getElementsByClassName("product-quantity")
+    for (let i = 0; i < qtts.length; i++) {
+        let qtt = qtts[i].value
+        if (qtt == "" || qtt == " " || qtt.length == 0 || qtt.includes("-") || qtt.includes("e") || qtt.toString() == "0") {
+            alert("Product quantity must: \n - Not negative \n - Not be empty \n - Not 0 \n - Not includes 'e'")
             return false
         }
-        console.log(date)
-        console.log(arr)
-        if (err.length == 0) {
-            loadHome()
-            alert("SUCCESSFUL PURCHASE")
-        }
-        console.log(err)
-    })
+    }
+    return true
 }
 
 /////////////////////////////////////
-let checkingRightSide = async () => {
-    let pts = []
-    pts.push(await checkPaymentMethod())
-    pts.push(await checkAddress())
-    pts.push(await checkQuantity())
-    return pts
+let checkPayment = async () => {
+    let delivery = document.getElementById("pay-on-delivery").checked
+    let credit_card = document.getElementById("pay-by-credit-card").checked
+    if (credit_card == false && delivery == false) {
+        alert("Please choose one of two payment methods.")
+        return false
+    }
+
+    if (delivery == true) {
+        return true
+    }
+
+    if (credit_card == true) {
+        let tf = await checkCardInfo()
+        return tf
+    }
 }
-//////////////////////////////////
+
+/////////checking card 
+let checkCardInfo = async () => {
+    let num = document.getElementById("card-number").value
+    if (isIncludeAlphabet(num) != 1 || num == " " || num == "" || num.length == 0 || num.length != 16) {
+        alert("Card number must: \n - Not includes alphabet, special characters \n - Have 16 digits \n - Not empty")
+        return false
+    }
+
+    //////
+
+    let name = document.getElementById("name-on-card").value
+    if (name == "" || name == " " || name.length == 0 || name.length < 4 || isIncludeInvalidChars(name) != 1 || name.length > 100) {
+        alert("Card name must: \n - Not empty \n - Not includes special characters \n - Longer than 4 characters \n - Shorter than 100 characters")
+        return false
+    }
+
+    //////
+
+    let card = document.getElementsByClassName("creditCards")
+    let check = []
+    for (let i = 0; i < card.length; i++) {
+        check.push(card[i].checked)
+    }
+    if (!check.includes(true)) {
+        alert("Please choose a card type")
+        return false
+    }
+
+
+    return true
+}
+
 let checkAddress = async () => {
-    let private_house = document.getElementById("private-home").checked
-    let post_office = document.getElementById("post-office").checked
-    if (private_house == true) {
-        let pts = 0
-        pts += await checkPrivateHouse()
-        if (pts == 1) {
-            return 1
-        }
-    }
-    if (post_office == true) {
-        let pts = 0
-        pts += await checkPostOffice()
-        if (pts == 1) {
-            return 1
-        }
-    }
-    if (private_house == false && post_office == false) {
-        alert("Must choose one of the addresses")
-        return 0
-    }
-}
-
-let checkPrivateHouse = async () => {
-    let select = document.getElementById("countries").value
-    let beginNum = 1
-    const countryThatHasStates = [
-        "India",
-        "USA",
-        "America",
-        "Brazil",
-        "Nigeria",
-        "Mexico",
-        "Ethiopia",
-        "Germany",
-        "Myanmar",
-        "Australia",
-        "South Sudan",
-        "Micronesia",
-        "Palau"
-    ]
-    const address = [
-
-        {
-            name: "State",
-        },
-        {
-            name: "City/Province"
-        },
-        {
-            name: "District"
-        },
-        {
-            name: "Ward"
-        },
-        {
-            name: "Street name"
-        },
-        {
-            name: "House_number"
-        }
-    ]
-    let err = []
-    for (let i = 0; i < countryThatHasStates.length; i++) {
-        if (select == countryThatHasStates[i]) {
-            beginNum = 0
-        }
-    }
-    for (let i = beginNum; i < address.length; i++) {
-        let val = document.getElementById(address[i].name).value
-        err.push(isEmpty(val))
-    }
-    if (err.includes(true)) {
-        alert("Private home address: \n - Input cannot be empty")
-        return 0
-    }
-    let checkArr = () => {
-        return "false"
-    }
-    if (err.every(checkArr)) {
-        return 1
-    }
-}
-
-let checkPostOffice = async () => {
-    let select = document.getElementById("countries").value
-    let beginNum = 1
-    const countryThatHasStates = [
-        "India",
-        "USA",
-        "America",
-        "Brazil",
-        "Nigeria",
-        "Mexico",
-        "Ethiopia",
-        "Germany",
-        "Myanmar",
-        "Australia",
-        "South Sudan",
-        "Micronesia",
-        "Palau"
-    ]
-    const postOfficeAddress = [
-        "State",
-        "City/ Province",
-        "District",
-        "Street",
-        "Zip/ Postal Code",
-
-    ]
-    let err = []
-    for (let i = 0; i < countryThatHasStates.length; i++) {
-        if (select == countryThatHasStates[i]) {
-            beginNum = 0
-        }
-    }
-    for (let i = beginNum; i < postOfficeAddress.length; i++) {
-        let val = document.getElementById(postOfficeAddress[i]).value
-        err.push(isEmpty(val))
-    }
-    if (err.includes(true)) {
-        alert("Post Office Address: \n - Input cannot be empty")
-        return 0
-    }
-    let checkArr = () => {
-        return "false"
-    }
-    if (err.every(checkArr)) {
-        return 1
-    }
-}
-let checkQuantity = async () => {
-    let qtt = document.getElementsByClassName("product-quantity")[0]
-    if (qtt.value == 0 || qtt.value.includes("-")) {
-        alert("Quantity cannot be negative and 0")
-        return 0
-    }
-    if (qtt.value != 0 && !qtt.value.includes("-")) {
-        return 1
-    }
-    console.log(qtt)
-}
-//////////////////////////////////
-let checkPaymentMethod = async () => {
-    let cc = document.getElementById("pay-by-credit-card").checked
-    let od = document.getElementById("pay-on-delivery").checked
-    if (cc == false && od == false) {
-        alert("must choose one of two payment methods")
-        return 0
-    } else if (cc == true) {
-        let pts = 0
-        let cc = await checkCC()
-        return cc
-    }
-    if (od == true) {
-        return 1
-    }
-}
-
-let checkCC = async () => {
-    let pts = 0
-    pts += await checkCCT()
-    pts += await checkCCI()
-    pts += dateCompare()
-    if (pts == 3) {
-        return 1
-    }
-}
-
-let checkCCT = async () => {
-    let CCs = document.getElementsByClassName("credit-cards")
-    let arr = [];
-    for (let i = 0; i < CCs.length; i++) {
-        arr.push(CCs[i].checked)
-    }
-    if (arr.includes(true)) {
-        return 1
-    } else {
-        alert("Must choose a credit card")
-        return false
-    }
-}
-
-let checkCCI = async () => {
-    let input_arr = ["card-number", "name-on-card"]
-    let pts = 0
-    let cardNum = document.getElementById("card-number").value
-
-    for (let i = 0; i < input_arr.length; i++) {
-        let ck = isNotFilled(document.getElementById(input_arr[i]))
-        pts += ck
-    }
-    pts += isIncludeAlphabet(cardNum)
-    if (cardNum.length == 16) {
-        pts += 1
-    }
-
-    if (document.getElementById("name-on-card").value.length > 4) {
-        pts += 1
-    }
-
-    if (pts == 5) {
-        return 1
-    } else {
-        alert("- Input cant be empty \n - Card numbers cant include alphabetic characters, special characters and must have 16 digits  \n  - Must be longer than 5 characters ")
+    let PH = document.getElementById("private-home").checked
+    let PO = document.getElementById("post-office").checked
+    if (PH == false && PO == false) {
+        alert("Please select one of 2 address types")
         return false
     }
 
-}
+    if (PH == true) {
+        let stt = document.getElementById("State")
+        if (stt != null) {
+            let arr = ["City/Province", "District", "Ward", "Street-name", "House_number"]
+            if (stt.value == "" || stt.value == " " || stt.value.length == 0) {
+                alert("At state input: \n - Input cannot be empty")
+                return false
+            }
+            for (let i = 0; i < arr.length; i++) {
+                let str = document.getElementById(arr[i]).value
+                if (str == " " || str == " " || str.length == 0) {
+                    alert("At address input: \n - Input cannot be empty")
+                    return false
+                }
+            }
+        }
+    }
 
-let dateCompare = () => {
-    return isNotFilled(document.getElementById("expiration-date").value)
+    if (PO == true) {
+        let stt = document.getElementById("State")
+        if (stt != null) {
+            let arr = ["City/Province", "District", "Street", "Zip/Postal_Code"]
+            if (stt.value == "" || stt.value == " " || stt.value.length == 0) {
+                alert("At state input: \n - Input cannot be empty")
+                return false
+            }
+            for (let i = 0; i < arr.length; i++) {
+                let str = document.getElementById(arr[i]).value
+                if (str == " " || str == " " || str.length == 0) {
+                    alert("At address input: \n - Input cannot be empty")
+                    return false
+                }
+            }
+        }
+    }
+
+    return true
+
 }
 
 /////////////////////////////////////
 let checkingLeftSide = async () => {
-    let first_name = await checkFirstName()
-    let last_name = await checkLastName()
-    let phone_number = await checkPhoneNumber("buy-phoneNum")
-    let checkArray = () => {
-        return "valid"
-    }
-    let arr = [first_name, last_name, phone_number]
-    if (arr.includes(false)) {
-        return false
-    }
-    if (arr.every(checkArray)) {
-        return true
-    }
-}
-let checkFirstName = async () => {
-    let name = document.getElementById("first-name").value
-    let points = 0
-    points += isNotFilled(name)
-    points += isIncludeInvalidChars(name)
-    points += isLongerThan(name, 100)
-    if (points == 3) {
-        return "valid"
-    }
-    if (points != 3) {
+    let fname = document.getElementById("first-name").value
+    let lname = document.getElementById("last-name").value
+    let phone = document.getElementById("buy-phoneNum").value
+
+    if (fname == "" || fname == " " || fname.length == 0 || isIncludeInvalidChars(fname) != 1 || fname.length > 100) {
         alert("First name must: \n - Shorter than 100 characters \n - Not includes special characters \n - Not empty")
         return false
     }
 
-}
-let checkLastName = async () => {
-    let name = document.getElementById("last-name").value
-    let points = 0
-    points += isNotFilled(name)
-    points += isIncludeInvalidChars(name)
-    points += isLongerThan(name, 100)
-    if (points == 3) {
-        return "valid"
-    }
-    if (points != 3) {
+    if (lname == "" || lname == " " || lname.length == 0 || isIncludeInvalidChars(lname) != 1 || lname.length > 100) {
         alert("Last name must: \n - Shorter than 100 characters \n - Not includes special characters \n - Not empty")
         return false
     }
+
+    if (phone.length == 0 || phone == " " || phone == "" || isIncludeAlphabet(phone) != 1 || phone.length > 14 || phone.length < 9) {
+        alert("Phone number must: \n - Shorter than 14 digits \n - Longer than 9 digits \n - Not includes special, alphabet characters \n - Not empty")
+        return false
+    }
+    return true
+    // let first_name = await checkFirstName()
+    // let last_name = await checkLastName()
+    // let phone_number = await checkPhoneNumber("buy-phoneNum")
+    // let checkArray = () => {
+    //     return "valid"
+    // }
+    // let arr = [first_name, last_name, phone_number]
+    // if (arr.includes(false)) {
+    //     return false
+    // }
 }
 let checkPhoneNumber = async (id) => {
     let phone = document.getElementById(id).value
@@ -1063,17 +957,17 @@ let checkPhoneNumber = async (id) => {
     let points = 0
     points += isNotFilled(phone)
     points += isIncludeAlphabet(phone)
-    if (phone.length > 9) {
+    if (phone.length > 8) {
         points += 1
     }
 
-    if (phone.length < 12) {
+    if (phone.length < 14) {
         points += 1
     }
     if (points == 4) {
         return "valid"
     } if (points != 4) {
-        alert("Phone number must: \n - Not empty \n - Longer than 9 digits \n - Shorter than 12 digits \n - Not include special characters and alphabet letters ")
+        alert("Phone number must: \n - Not empty \n - Longer than 8 digits \n - Shorter than 14 digits \n - Not include special characters and alphabet letters ")
         return false
     }
 }
@@ -1111,19 +1005,9 @@ let isIncludeAlphabet = (input) => {
             err.push(invalid[i])
         }
     }
-    console.log(err)
     if (err.length != 0) {
         return 0
     } else if (err.length == 0) {
-        return 1
-    }
-}
-
-let isLongerThan = (input, number) => {
-    let length = input.length
-    if (length > number) {
-        return 0
-    } else {
         return 1
     }
 }
@@ -1335,7 +1219,7 @@ let replaceFunc = async (img, title, price, vendor, category) => {
     await loadForm()
     showCC()
     hideCC()
-    
+
     buy()
 
     document.getElementById(title).addEventListener("click", () => {
@@ -1492,5 +1376,21 @@ let loadSupportPage = async function () {
     })
 }
 
+//////////////Alerts
+let getAlertBox = async () => {
+    let response = await fetch("../Views/successAlert.html")
+    let result = response.text()
+    return result
+}
+let loadAlertBox = (box) => {
+    shop_content.innerHTML = box
 
-export { initHTML, getMenu, catchProfileEvent, loadProfile, loadCard, renderCard, getProductPage, loadProductPage, myFirebase, clickProduct, loadHome, getPurchasePage, replaceFunc, catchCartEvent, loadCartPage }
+    document.getElementById("alert-close").addEventListener("click", async () => {
+        document.getElementById("very-beautiful-alert-box").style.display = "none"
+        loadHome()
+    })
+}
+
+
+
+export { initHTML, getMenu, catchProfileEvent, loadProfile, loadCard, renderCard, getProductPage, loadProductPage, myFirebase, clickProduct, loadHome, getPurchasePage, replaceFunc, catchCartEvent, loadCartPage, getAlertBox, loadAlertBox }

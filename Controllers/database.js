@@ -201,31 +201,22 @@ const weightUnits = [
         acronym: "stone"
     }
 ]
-const id_array = [
-    "4Xu0h5PHBLW5TETQS0na",
-    "CUDBcYBGS1uTYyYJxMBC",
-    "CfWygDO7SV566bCazFUD",
-    "DJVpAg4Dw4YWIHFnWgIF",
-    "DPfgbBwyQD53O5BY6FdU",
-    "DgvwbnMV9rKB3sgMqodL",
-    "GNJcyRD2JqSPPKvNZ7ej",
-    "H0yYYn2eSqFq4VShrAX9",
-    "JFyZE1cmajFfl2tLMHYB",
-    "Jwv9t1xzJYm93AWuoyYR",
-    "TaSG8JqCulrpATJ0jC6w",
-    "WClZX5hxfVkmiS0VVIt6",
-    "Zkp5A6ZPBvfx9FdHXtgR",
-    "aDJpxiI6g5ux0IGHDpKV",
-    "dpp4tFdi6EkRo2df87U0",
-    "e4DQhQ30Ajr2Z9h4zvDF",
-    "gw2wynKdFEEGxr4h16xE",
-    "jc1CdYIy05kzM4MI2wJ8",
-    "leR6iiFa1CMcKcYCjZzR",
-    "pLkNUU9mHfGrXSSDiRXf",
-    "rHuoTTcwuzmg3lknPola",
-    "u8tAGXeMbmykgx4bmi0i",
-    "yp2F90lwx2RIpHAlT7o8",
-]
+let id_array = JSON.parse(localStorage.getItem("IDS"))
+
+let IDs = async () => {
+    myFirebase()
+    var db = firebase.firestore();
+
+    db.collection("Product_ID").get().then(async (results) => {
+        // console.log(results)
+        results.forEach(async (doc, index) => {
+            // console.log(doc.id)
+            let field = doc._delegate._document.data.value.mapValue.fields["IDs"].arrayValue.values
+            console.log(field)
+            return field
+        })
+    })
+}
 const creditCards = [
     {
         id: "cc-visa",
@@ -538,7 +529,7 @@ const address = [
         name: "Ward"
     },
     {
-        name: "Street name"
+        name: "Street-name"
     },
     {
         name: "House_number"
@@ -546,10 +537,10 @@ const address = [
 ]
 const postOfficeAddress = [
     "State",
-    "City/ Province",
+    "City/Province",
     "District",
     "Street",
-    "Zip/ Postal Code",
+    "Zip/Postal_Code",
 
 ]
 const countryThatHasStates = [
@@ -569,20 +560,7 @@ const countryThatHasStates = [
 ]
 
 
-let renderCurrencies = async () => {
-    currencies.forEach((value, index) => {
-        document.getElementById("currency").innerHTML += `
-                <option value="${value}" >${value}</option>
-        `
-    })
 
-    document.getElementById("currency").addEventListener("change", () => {
-        let Fl_Price = document.getElementsByClassName("fluctuating-price")
-        for (let i = 0; i < Fl_Price.length; i++) {
-            Fl_Price[i].placeholder = document.getElementById("currency").value
-        }
-    })
-}
 
 let renderWeightUnits = async () => {
     weightUnits.forEach((value, index) => {
@@ -600,11 +578,67 @@ let renderWeightUnits = async () => {
 
 //main 
 let initProducts = async () => {
-    var product_obj = []
-    let card = await loadCard()
     myFirebase()
     var db = firebase.firestore();
 
+
+    await localStorage.setItem("IDS", (JSON.stringify(
+        ["4Xu0h5PHBLW5TETQS0na",
+            "CUDBcYBGS1uTYyYJxMBC",
+            "CfWygDO7SV566bCazFUD",
+            "DJVpAg4Dw4YWIHFnWgIF",
+            "DPfgbBwyQD53O5BY6FdU",
+            "DgvwbnMV9rKB3sgMqodL",
+            "GNJcyRD2JqSPPKvNZ7ej",
+            "H0yYYn2eSqFq4VShrAX9",
+            "JFyZE1cmajFfl2tLMHYB",
+            "Jwv9t1xzJYm93AWuoyYR",
+            "TaSG8JqCulrpATJ0jC6w",
+            "WClZX5hxfVkmiS0VVIt6",
+            "Zkp5A6ZPBvfx9FdHXtgR",
+            "aDJpxiI6g5ux0IGHDpKV",
+            "dpp4tFdi6EkRo2df87U0",
+            "e4DQhQ30Ajr2Z9h4zvDF",
+            "gw2wynKdFEEGxr4h16xE",
+            "i3f6MUzHuo7VihZD55BD",
+            "jc1CdYIy05kzM4MI2wJ8",
+            "leR6iiFa1CMcKcYCjZzR",
+            "pLkNUU9mHfGrXSSDiRXf",
+            "rHuoTTcwuzmg3lknPola",
+            "u8tAGXeMbmykgx4bmi0i",
+            "yp2F90lwx2RIpHAlT7o8",
+        ])))
+
+
+    db.collection("Users Products").get().then(async (results) => {
+        // console.log(results)
+        results.forEach(async (doc, index) => {
+            let array = JSON.parse(localStorage.getItem("IDS"))
+            array.push(doc.id)
+            localStorage.setItem("IDS", JSON.stringify(array))
+        })
+    })
+    var product_obj = []
+    let card = await loadCard()
+
+
+    db.collection("Users Products").get().then(async (results) => {
+        results.forEach(async (doc, index) => {
+            let field = doc._delegate._document.data.value.mapValue.fields
+            let image = field.big_image.stringValue
+            let category = field.category.stringValue
+            let name = field.name.stringValue
+            let price = field.price.doubleValue
+            let vendor = field.vendor.stringValue
+            let description = field.desc.stringValue
+
+
+            let newCard = card.replace("{{image}}", image).replace("{{title}}", name).replace("{{category}}", category).replace("{{price}}", price).replace("{{vendor}}", vendor).replace("{{id}}", doc.id).replace("lorem ipsum dolor sit amet, consectetur adipisicing elit...", description)
+            await renderCard(newCard)
+            catchEvent()
+
+        })
+    })
     db.collection("Products").get().then(async (results) => {
         // console.log(results)
         results.forEach(async (doc, index) => {
@@ -620,31 +654,10 @@ let initProducts = async () => {
 
             let newCard = card.replace("{{image}}", image).replace("{{title}}", name).replace("{{category}}", category).replace("{{price}}", price).replace("{{vendor}}", vendor).replace("{{id}}", doc.id)
             await renderCard(newCard)
-
             catchEvent()
-
-
 
         })
     })
-
-
-
-    // for (let i = 0; i < 24; i++) {
-    //     let product = initProduct(data[i])
-
-    //     // DO NOT OPEN
-    //     // db.collection("Products").add({
-    //     //     name : (await product).getName(),
-    //     //     price : (await product).setPrice(),
-    //     //     category : (await product).getCategory(),
-    //     //     image : (await product).getImage(),
-    //     //     vendor : await (await product).getVendor()
-    //     // }).then((document) => {
-    //     //     console.log(document.id)
-    //     // }).catch((error) => {
-    //     //     console.log(error.message)
-    //     // })
 
 }
 
@@ -675,7 +688,6 @@ let loadClickedProduct = async (id) => {
                 let image = (await product_obj).getImage()
                 let vendor = await (await product_obj).getVendor()
 
-                console.log(name, price, category, image, vendor)
 
                 let html = await getProductPage()
 
@@ -687,7 +699,7 @@ let loadClickedProduct = async (id) => {
                     .replace("{{shop-name}}", vendor)
                     .replace("{{category}}", category)
 
-                
+
                 await loadProductPage(html)
                 document.getElementById("buy-now-btn").addEventListener("click", async () => {
                     let user = document.getElementById("userEmail").textContent
@@ -697,7 +709,7 @@ let loadClickedProduct = async (id) => {
                     }
                     await replaceFunc(image, name, category, price, vendor)
                 })
-                catchCartEvent(name, price, category,image,   vendor)
+                catchCartEvent(name, price, category, image, vendor)
             }
 
         })
@@ -705,24 +717,80 @@ let loadClickedProduct = async (id) => {
     })
 
 
+
 }
 
+let loadUP = async (id) => {
+    let PI = id + 1
+    let PID = JSON.parse(localStorage.getItem("IDS"))[id]
+    myFirebase()
+    var db = firebase.firestore();
+    db.collection("Users Products").get().then(async (results) => {
+        results.forEach(async (product) => {
+            let product_obj = product._delegate._document.data.value.mapValue.fields
+            let ids = product_obj["id"].integerValue
+            if (PI == ids) {
+                let image = product_obj.big_image.stringValue
+                let category = product_obj.category.stringValue
+                let name = product_obj.name.stringValue
+                let price = product_obj.price.doubleValue
+                let vendor = product_obj.vendor.stringValue
+                let description = product_obj.desc.stringValue
+                let inventory = product_obj.inventory.stringValue
+                let images = JSON.parse(product_obj.image.stringValue)
+
+                let html = await getProductPage()
+
+                html = html.replace("{{img1.5}}", image).replace("{{img2}}", image).replace("{{img3}}", image).replace("{{img4}}", image).replace("{{img5}}", image).replace("{{img1}}", image)
+                    .replace("{{product-title}}", name)
+                    .replace("{{ratings}}", "0")
+                    .replace("{{sold}}", "0")
+                    .replace("{{price}}", price)
+                    .replace("{{shop-name}}", vendor)
+                    .replace("{{category}}", category)
+                    .replace("{{desc}}", description + "<br> Phone number: " + product_obj.phone_number.stringValue + "<br> Weight: " + product_obj.weight.stringValue + "/product")
+                    .replace("{{no-data}}", inventory)
 
 
-//just ignore the errors
+                await loadProductPage(html)
+                document.getElementById("buy-now-btn").addEventListener("click", async () => {
+                    let user = document.getElementById("userEmail").textContent
+                    if (user.trim() == "bruh") {
+                        alert("Please sign up/login")
+                        return false
+                    }
+                    await replaceFunc(image, name, category, price, vendor)
+                })
+                catchCartEvent(name, price, category, image, vendor)
+            }
+
+
+        })
+
+    })
+
+}
 let catchEvent = async () => {
     for (let i = 0; i < id_array.length; i++) {
-        document.getElementById(id_array[i]).addEventListener("click", async () => {
-            loadClickedProduct(i)
-        })
+        if (document.getElementById(id_array[i])) {
+            document.getElementById(id_array[i]).addEventListener("click", async () => {
+                if (i > 23) {
+                    loadUP(i)
+                    return false
+                }
+                loadClickedProduct(i)
+            })
+        }
     }
 }
+
+
 
 let renderCreditCards = async () => {
     for (let i = 0; i < creditCards.length; i++) {
         document.getElementById("card-list").innerHTML += `
                         <div class="card-name">
-                            <input type="radio" name="credit-card" id="${creditCards[i].id}" class="credit-cards"
+                            <input type="radio" name="credit-card" id="${creditCards[i].id}" class="creditCards"
                                 style="width: 15px; height: 15px">
                             <span class="card-title">${creditCards[i].name}</span>
                             <i class="${creditCards[i].class}"></i>
@@ -825,7 +893,7 @@ let searching = async (value) => {
 
         })
     })
-    
+
 }
 
 let searchingVendors = async (vendorsArray) => {
@@ -943,4 +1011,7 @@ let getFireBase = async () => {
     return db
 }
 
-export { renderCurrencies, renderWeightUnits, initProducts, loadClickedProduct, renderCreditCards, loadCountriesList, loadAddressForm, loadPostOfficeForm, searching, searchingVendors, searchingCategory, searchingPrice }
+let addID = (name) => {
+    id_array += [name]
+}
+export { renderWeightUnits, initProducts, loadClickedProduct, renderCreditCards, loadCountriesList, loadAddressForm, loadPostOfficeForm, searching, searchingVendors, searchingCategory, searchingPrice, addID }

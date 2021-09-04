@@ -1,2 +1,5 @@
-https://fakefruitshop.000webhostapp.com/
 https://fruit-shop-sigma.vercel.app/
+fruitshop.tk
+
+alert hiện liên tục 
+khi sign up/login sai thì chuyển về trang chủ

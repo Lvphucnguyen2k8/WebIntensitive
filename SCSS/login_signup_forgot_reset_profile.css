@@ -25,9 +25,9 @@
 body {
     margin: 0;
     padding: 0;
+    background-image: url("https://image.freepik.com/free-vector/ripe-pomegranate-sliced-fruit-background-style-technical-drawings_122058-599.jpg");
     font-family: sans-serif;
-    
-            padding: 20px;
+    padding: 20px;
 }
 
 .box {
@@ -35,8 +35,7 @@ body {
     height: auto;
     text-align: center;
     background: #34485e;
-    
-            padding: 20px;
+    padding: 20px;
 }
 
 .box h1 {
@@ -82,4 +81,9 @@ body {
 
 .box button[type = "submit"]:hover {
     background: #2ecc71;
+}
+
+.box #alert {
+    font-size: 20px;
+    color: red;
 }
